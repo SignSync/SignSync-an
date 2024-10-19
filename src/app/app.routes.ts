@@ -6,6 +6,14 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/feature/auth.routes')
   },
   {
+    path:'sign-in',
+    loadComponent:()=> import('./auth/feature/sign-in/sign-in.component'),
+  },
+  {
+    path:'sign-up',
+    loadComponent:()=> import('./auth/feature/sign-up/sign-up.component')
+  },
+  {
     path:'*',
     redirectTo: ''
   }
