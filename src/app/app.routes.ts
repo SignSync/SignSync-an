@@ -12,6 +12,9 @@ export const routes: Routes = [
   {
     path:'sign-up',
     loadComponent:()=> import('./auth/feature/sign-up/sign-up.component')
+  },{
+    path:'inicio',
+    loadComponent:()=> import('./components/navegacion/navegacion.component')
   },
   {
     path:'contratos',

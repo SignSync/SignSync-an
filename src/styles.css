@@ -10,10 +10,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   vertical-align: baseline;
   font-family: "Outfit", sans-serif;
 }
-
 body{
   font-family:"Outfit", sans-serif !important;
   font-optical-sizing: auto;
   font-weight: normal;
   font-style: normal;
+  background: linear-gradient(279deg, rgba(189, 206, 242, 1) 0%, rgba(255, 255, 255, 1) 100%);
 }
