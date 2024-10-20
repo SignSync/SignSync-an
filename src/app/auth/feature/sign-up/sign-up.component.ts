@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit} from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
+
 interface Usuario{
   usuario:string,
   correo:string,

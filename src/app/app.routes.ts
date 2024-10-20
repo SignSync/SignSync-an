@@ -14,6 +14,10 @@ export const routes: Routes = [
     loadComponent:()=> import('./auth/feature/sign-up/sign-up.component')
   },
   {
+    path:'contratos',
+    loadComponent:()=> import('./interfaces/contratos/contratos.component')
+  },
+  {
     path:'*',
     redirectTo: ''
   }
