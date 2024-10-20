@@ -2,6 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit} from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http'; // Importa esto
+
+
 
 interface Usuario{
   usuario:string,
@@ -11,14 +16,17 @@ interface Usuario{
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
 })
 
 export default class SignUpComponent implements OnInit{
-  constructor(private fb:FormBuilder){}
+  private apiUrl = 'http://127.0.0.1:5000/api';
+  constructor(private fb:FormBuilder,private http: HttpClient){}
 
+
+  data: any;
   formGroup!:FormGroup;
   usuario:Usuario = {
     usuario:'',
@@ -28,6 +36,10 @@ export default class SignUpComponent implements OnInit{
 
   ngOnInit(): void {
     this.formGroup = this.initForm();
+    this.getData().subscribe(response => {
+      this.data = response;
+      console.log(this.data);
+    });
   }
 
   initForm():FormGroup{
@@ -42,5 +54,9 @@ export default class SignUpComponent implements OnInit{
     this.usuario = this.formGroup.value;
     console.log('Datos: ');
     console.log(this.usuario);
+  }
+
+  getData(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
   }
 }
