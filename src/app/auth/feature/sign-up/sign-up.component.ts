@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http'; // Importa esto
 
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
 interface Usuario{
@@ -22,8 +24,8 @@ interface Usuario{
 })
 
 export default class SignUpComponent implements OnInit{
-  private apiUrl = 'http://127.0.0.1:5000/api';
-  constructor(private fb:FormBuilder,private http: HttpClient){}
+  private apiUrl = 'http://127.0.0.1:5000/api/sign-up';
+  constructor(private fb:FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router){}
 
 
   data: any;
@@ -36,10 +38,6 @@ export default class SignUpComponent implements OnInit{
 
   ngOnInit(): void {
     this.formGroup = this.initForm();
-    this.getData().subscribe(response => {
-      this.data = response;
-      console.log(this.data);
-    });
   }
 
   initForm():FormGroup{
@@ -52,11 +50,20 @@ export default class SignUpComponent implements OnInit{
 
   onSubmit():void{
     this.usuario = this.formGroup.value;
-    console.log('Datos: ');
-    console.log(this.usuario);
+
+    this.registrarUsuario(this.usuario).subscribe(
+      response => {
+        this.data = response;
+        this.router.navigate(['/sign-in']);
+        console.log(this.data);
+      },
+      error => {
+        console.error('Error al registrar usuario', error);
+      }
+    );
   }
 
-  getData(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  registrarUsuario(usuario: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, usuario);
   }
 }

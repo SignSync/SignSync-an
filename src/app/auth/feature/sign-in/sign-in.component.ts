@@ -22,7 +22,7 @@ interface Usuario{
 
 
 export default class SignInComponent {
-  private apiUrl = 'http://127.0.0.1:5000/api';
+  private apiUrl = 'http://127.0.0.1:5000/api/sign-in';
   constructor(private fb:FormBuilder, private http: HttpClient){}
 
   data:any;
@@ -35,10 +35,6 @@ export default class SignInComponent {
 
   ngOnInit(): void {
     this.formGroup = this.initForm();
-    this.getData().subscribe(response => {
-      this.data = response;
-      console.log(this.data);
-    });
   }
 
   initForm():FormGroup{
@@ -52,9 +48,19 @@ export default class SignInComponent {
     this.usuario = this.formGroup.value;
     console.log('Datos: ');
     console.log(this.usuario);
+
+    this.iniciarSesion(this.usuario).subscribe(
+      response => {
+        this.data = response;
+        console.log(this.data);
+      },
+      error => {
+        console.error('Error al iniciar sesión', error);
+      }
+    );
   }
 
-  getData(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  iniciarSesion(usuario: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, usuario);
   }
 }

@@ -1,5 +1,5 @@
 /* Para pantallas pequeñas como teléfonos móviles */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .container_login{
     width: 90% !important;
     padding: 50px 30px !important;
