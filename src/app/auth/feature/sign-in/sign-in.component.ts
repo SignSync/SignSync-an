@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder } from '@angular/forms';
-
 //IMPORTAR HTTP
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
