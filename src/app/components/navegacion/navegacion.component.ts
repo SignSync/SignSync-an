@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { VistaContratoComponent } from "../vista-contrato/vista-contrato.component";
 import { VercontratosComponent } from '../vercontratos/vercontratos.component';
 
 @Component({
   selector: 'app-navegacion',
   standalone: true,
-  imports: [VistaContratoComponent, VercontratosComponent],
+  imports: [RouterOutlet,VistaContratoComponent, VercontratosComponent],
   templateUrl: './navegacion.component.html',
   styleUrl: './navegacion.component.css'
 })

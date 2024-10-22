@@ -1,16 +1,16 @@
 import { Routes } from '@angular/router';
-
+import { AppComponent } from './app.component';
+import NavegacionComponent from './components/navegacion/navegacion.component';
 export const routes: Routes = [
   {
-    path:'sign-in',
-    loadComponent:()=> import('./auth/feature/sign-in/sign-in.component'),
+    path: '',
+    component: AppComponent,
+    loadChildren: () => import('./auth/feature/auth.routes')
   },
   {
-    path:'sign-up',
-    loadComponent:()=> import('./auth/feature/sign-up/sign-up.component')
-  },{
-    path:'inicio',
-    loadComponent:()=> import('./components/navegacion/navegacion.component')
+    path:'',
+    component: NavegacionComponent,
+    loadChildren: () => import('./components/components.routes')
   },
   {
     path:'*',
