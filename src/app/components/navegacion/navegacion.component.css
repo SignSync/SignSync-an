@@ -48,6 +48,10 @@
   transition: background-color 0.3s;
   font-size: 25px;
 }
-.menu-item:hover{
+.menu-item a{
+  color: black;
+  transition: background-color 1s ease-out;
+}
+.menu-item a:hover{
   color: #007bff;
 }

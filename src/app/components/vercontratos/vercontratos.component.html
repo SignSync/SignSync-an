@@ -3,7 +3,8 @@
     <h1 class="col text-start fw-bolder">Contratos</h1>
     <h1 class="col text-end">Julio, 01</h1>
     <div class="col row">
-      <i type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" class="col-1 bi bi-plus-circle-fill" style="font-size: 35px;"></i>
+      <i type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="col-1 bi bi-plus-circle-fill"
+        style="font-size: 35px;"></i>
       <div class="col-10 row">
         <div class="col-auto">
           <h5 class="fw-bolder">65</h5>
@@ -33,7 +34,8 @@
       <div class="row row-cols-2 justify-content-between px-3">
         <p class="col fw-light">Fecha de entrega</p>
         <div class="col text-end dropend">
-          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false"></i>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Action two</a></li>
@@ -62,7 +64,8 @@
       <div class="row row-cols-2 justify-content-between px-3">
         <p class="col fw-light">Fecha de entrega</p>
         <div class="col text-end dropend">
-          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false"></i>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Action two</a></li>
@@ -91,7 +94,8 @@
       <div class="row row-cols-2 justify-content-between px-3">
         <p class="col fw-light">Fecha de entrega</p>
         <div class="col text-end dropend">
-          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false"></i>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Action two</a></li>
@@ -120,7 +124,8 @@
       <div class="row row-cols-2 justify-content-between px-3">
         <p class="col fw-light">Fecha de entrega</p>
         <div class="col text-end dropend">
-          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false"></i>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Action two</a></li>
@@ -149,7 +154,8 @@
       <div class="row row-cols-2 justify-content-between px-3">
         <p class="col fw-light">Fecha de entrega</p>
         <div class="col text-end dropend">
-          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false"></i>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Action two</a></li>
@@ -176,7 +182,11 @@
     </div>
   </div>
 </section>
-<div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+<!-- Modal  --->
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -185,14 +195,73 @@
       </div>
       <div class="modal-body">
         <form action="">
-
+          <div class="mb-3 form-group">
+            <label for="NombreContrato">Nombre del contrato</label>
+            <input type="text" placeholder="Ingresa el nombre del usuario">
+          </div>
+          <div class="row mb-3">
+            <div class="col form-group">
+              <label for="">Tipo de contrato</label>
+              <Select>
+                <option value="">Servicio</option>
+              </Select>
+            </div>
+            <div class="col">
+              <label for="">Eligue un color para tu contrato</label>
+              <div class="color-options">
+                <label class="color-option">
+                  <input type="radio" name="color" value="#FEE4CB">
+                  <div class="color-circle" style="background-color: #FEE4CB;"></div>
+                  <span>Color 1</span>
+                </label>
+                <label class="color-option">
+                  <input type="radio" name="color" value="#FFD3E2">
+                  <div class="color-circle" style="background-color: #FFD3E2;"></div>
+                  <span>Color 2</span>
+                </label>
+                <label class="color-option">
+                  <input type="radio" name="color" value="#E9E7FD">
+                  <div class="color-circle" style="background-color: #E9E7FD;"></div>
+                  <span>Color 3</span>
+                </label>
+                <label class="color-option">
+                  <input type="radio" name="color" value="#C8F7DC">
+                  <div class="color-circle" style="background-color: #C8F7DC;"></div>
+                  <span>Color 4</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3 form-group">
+            <label for="Lugar">Lugar</label>
+            <input type="text" name="" id="" placeholder="Ingresa el lugar del contrato">
+          </div>
+          <div class="row mb-3">
+            <div class="col form-group">
+              <label for="">Fecha de inicio del contrato</label>
+              <input type="date" name="inicio" id="">
+            </div>
+            <div class="col form-group">
+              <label for="">Fecha de entrega del contrato</label>
+              <input type="date" name="final" id="">
+            </div>
+          </div>
+          <div class="mb-3 form-group">
+            <label for="">Contratista</label>
+            <select name="" id="">
+              <option value="">Contratista 1</option>
+            </select>
+          </div>
+          <div class="d-flex flex-row-reverse">
+            <button type="submit" class="enviar">Crear contrato</button>
+          </div>
         </form>
       </div>
+      <!--
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+
       </div>
+      -->
     </div>
   </div>
 </div>
-

@@ -8,6 +8,18 @@ const navRoutes: unknown = [
   {
     path: 'vista',
     loadComponent: () => import('./vista-contrato/vista-contrato.component').then(m => m.VistaContratoComponent),
+  },
+  {
+    path: 'miperfil',
+    loadComponent: () => import('./miperfil/miperfil.component')
+  },
+  {
+    path: 'miempresa',
+    loadComponent: () => import('./miempresa/miempresa.component')
+  },
+  {
+    path: 'calendario',
+    loadComponent: () => import('./calendario/calendario.component')
   }
 ];
 
