@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { VistaContratoComponent } from "../vista-contrato/vista-contrato.component";
 import { VercontratosComponent } from '../vercontratos/vercontratos.component';
-
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-navegacion',
   standalone: true,
@@ -11,5 +11,6 @@ import { VercontratosComponent } from '../vercontratos/vercontratos.component';
   styleUrl: './navegacion.component.css'
 })
 export default class NavegacionComponent {
+
 
 }

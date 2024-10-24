@@ -1,18 +1,25 @@
+nav{
+}
+
 .container_img{
-  width: 80px;
-  height: 80px;
-  background: rgb(107,145,242);
-  background: linear-gradient(144deg, rgba(107,145,242,1) 45%, rgba(51, 51, 51, 0.103) 80%, rgba(255,255,255,1) 85%);
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(328deg, rgba(255, 255, 255, 1) 6%, rgba(107, 145, 242, 0.4906337535014006) 45%);
   backdrop-filter: blur(10px); /* Aplica desenfoque al fondo */
   -webkit-backdrop-filter: blur(10px); /* Compatibilidad con navegadores basados en WebKit */
   box-shadow: -1px 6px 15px 1px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 25px;
+  border-radius: 15px;
+}
+.container_img img{
+  max-width: 45px;
+  max-height: auto;
 }
 .titulo{
-  text-shadow: 1px -1px 3px rgba(0, 0, 0, 0.5);
+  font-weight: bolder;
+  font-size: 25px;
 }
 .input_busqueda, .input_busqueda:focus,.input_busqueda::placeholder{
   border: none;
@@ -20,6 +27,7 @@
   width: 95%;
   padding: .8%;
   font-size: 12px;
+  border-radius: 20px;
 }
 
 .iconos_menu{
@@ -54,4 +62,8 @@
 }
 .menu-item a:hover{
   color: #007bff;
+}
+/* Clase para desenfocar el contenido fuera del modal */
+.blur-background {
+  filter: blur(5px);
 }

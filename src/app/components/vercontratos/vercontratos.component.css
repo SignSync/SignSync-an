@@ -81,4 +81,10 @@ h5{
   font-size: 16px;
   cursor: pointer;
 }
-
+.agregar{
+  color: #7a97ff;
+  cursor: pointer;
+}
+.agregar:hover{
+  color: #5a7cf7;
+}

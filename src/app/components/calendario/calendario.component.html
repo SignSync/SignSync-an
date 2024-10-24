@@ -1,1 +1,48 @@
-<p>calendario works!</p>
+<div class="row gap-4">
+  <div class="col-md-8 bg-white principal p-5 ">
+    <div class="d-flex align-items-end">
+      <a href="/contratos" class="volver"> <i class="bi bi-arrow-left-short"></i> Volver</a>
+      <h2 class="ms-3 mb-0 ">Calendario</h2>
+    </div>
+    <div class="calendar">
+      <div class="header">
+        <button (click)="prevMonth()">«</button>
+        <span class="mes">{{ getMonthName() }} {{ currentYear }}</span>
+        <button (click)="nextMonth()">»</button>
+      </div>
+
+      <!-- Días de la semana -->
+      <div class="days-of-week">
+        <span *ngFor="let day of daysOfWeek">{{ day }}</span>
+      </div>
+
+      <!-- Días del mes -->
+      <div class="days-in-month">
+        <span *ngFor="let day of daysInMonth">
+          <span *ngIf="day">{{ day }}</span>
+          <span *ngIf="!day">&nbsp;</span> <!-- Espacio para los días vacíos -->
+        </span>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-3 bg-white p-3 principal">
+    <h2 class="text-center">Contratos</h2>
+    <div style="background-color: #FFD3E2;" class="p-4 rounded-4">
+      <div class="row">
+        <p class="col-6">2024-10-20</p>
+        <div class="col text-end dropend">
+          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false"></i>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Action two</a></li>
+            <li><a class="dropdown-item" href="#">Action three</a></li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="text-center">Contrato nuevo</h3>
+      <p class="text-center text-body-tertiary fs-5">Servicios</p>
+    </div>
+  </div>
+</div>
