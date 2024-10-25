@@ -194,38 +194,38 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="">
+        <form [formGroup] = "formGroup" (ngSubmit)="OnSubmit()">
           <div class="mb-3 form-group">
             <label for="NombreContrato">Nombre del contrato</label>
-            <input type="text" placeholder="Ingresa el nombre del usuario">
+            <input type="text" formControlName="nombre" placeholder="Ingresa el nombre del usuario">
           </div>
           <div class="row mb-3">
             <div class="col form-group">
               <label for="">Tipo de contrato</label>
-              <Select>
+              <select formControlName="tipo">
                 <option value="">Servicio</option>
-              </Select>
+              </select>
             </div>
             <div class="col">
               <label for="">Eligue un color para tu contrato</label>
               <div class="color-options">
                 <label class="color-option">
-                  <input type="radio" name="color" value="#FEE4CB">
+                  <input type="radio" formControlName="color" value="#FEE4CB">
                   <div class="color-circle" style="background-color: #FEE4CB;"></div>
                   <span>Color 1</span>
                 </label>
                 <label class="color-option">
-                  <input type="radio" name="color" value="#FFD3E2">
+                  <input type="radio" formControlName="color" value="#FFD3E2">
                   <div class="color-circle" style="background-color: #FFD3E2;"></div>
                   <span>Color 2</span>
                 </label>
                 <label class="color-option">
-                  <input type="radio" name="color" value="#E9E7FD">
+                  <input type="radio" formControlName="color" value="#E9E7FD">
                   <div class="color-circle" style="background-color: #E9E7FD;"></div>
                   <span>Color 3</span>
                 </label>
                 <label class="color-option">
-                  <input type="radio" name="color" value="#C8F7DC">
+                  <input type="radio" formControlName="color" value="#C8F7DC">
                   <div class="color-circle" style="background-color: #C8F7DC;"></div>
                   <span>Color 4</span>
                 </label>
@@ -233,23 +233,23 @@
             </div>
           </div>
           <div class="mb-3 form-group">
-            <label for="Lugar">Lugar</label>
-            <input type="text" name="" id="" placeholder="Ingresa el lugar del contrato">
+            <label for="lugar">Lugar</label>
+            <input type="text" formControlName="lugar" id="" placeholder="Ingresa el lugar del contrato">
           </div>
           <div class="row mb-3">
             <div class="col form-group">
               <label for="">Fecha de inicio del contrato</label>
-              <input type="date" name="inicio" id="">
+              <input type="date" formControlName="fecha_inicio" id="">
             </div>
             <div class="col form-group">
               <label for="">Fecha de entrega del contrato</label>
-              <input type="date" name="final" id="">
+              <input type="date" formControlName="fecha_entrega" id="">
             </div>
           </div>
           <div class="mb-3 form-group">
             <p>Si no tienes contratista puedes crear uno dando click <a class="agregar" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"> Aqui</a></p>
             <label for="">Contratista</label>
-            <select name="" id="">
+            <select formControlName="id_contratista" id="">
               <option value="">Contratista 1</option>
             </select>
           </div>
