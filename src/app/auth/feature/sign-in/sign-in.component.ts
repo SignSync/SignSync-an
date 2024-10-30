@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder } from '@angul
 //IMPORTAR HTTP
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http'; // Importa esto
+import { HttpClientModule } from '@angular/common/http';
 
 interface Usuario{
   correo:string,
