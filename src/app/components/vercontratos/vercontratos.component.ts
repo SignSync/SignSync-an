@@ -26,7 +26,7 @@ interface Contrato {
   styleUrl: './vercontratos.component.css'
 })
 export class VercontratosComponent implements OnInit{
-  constructor(private fb:FormBuilder, private apiService: ServicioAPIService){}
+  constructor(private fb:FormBuilder){}
   formGroup!:FormGroup
 
   idUsuario:number = 2;
@@ -37,17 +37,7 @@ export class VercontratosComponent implements OnInit{
 
     this.data = {'id_usuario': this.idUsuario};
 
-     // Llamada a la API Flask usando el método getData del servicio
-    this.apiService.getAPI(JSON.stringify(this.data), 'empresa/getempresa')
-     .subscribe(
-       response => {
-         console.log('Datos recibidos:', response);
-         this.data = response;
-       },
-       error => {
-         console.error('Error al obtener los datos:', error);
-       }
-     );
+
   }
 
   initForm():FormGroup{

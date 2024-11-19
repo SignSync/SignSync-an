@@ -1,15 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit} from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http'; // Importa esto
-
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
-
-
+import { ApiResponse } from '../../../interfaces';
+import { ServicioAPIService } from '../../../components/servicio-api.service';
 interface Usuario{
   usuario:string,
   correo:string,
@@ -18,16 +11,15 @@ interface Usuario{
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
 })
 
 export default class SignUpComponent implements OnInit{
-  private apiUrl = 'http://127.0.0.1:5000/api/sign-up';
-  constructor(private fb:FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router){}
-
-
+  constructor(private fb:FormBuilder, private servicio:ServicioAPIService){}
+  display = 'none'
+  cargando = false
   data: any;
   formGroup!:FormGroup;
   usuario:Usuario = {
@@ -35,7 +27,7 @@ export default class SignUpComponent implements OnInit{
     correo:'',
     contrasena:''
   }
-
+  mensajeapi:string = ''
   ngOnInit(): void {
     this.formGroup = this.initForm();
   }
@@ -49,21 +41,23 @@ export default class SignUpComponent implements OnInit{
   }
 
   onSubmit():void{
+    this.cargando = true
     this.usuario = this.formGroup.value;
+    this.servicio.sign_up(this.usuario).subscribe({
+      next: (response: ApiResponse) => {
+        console.log(response);
 
-    this.registrarUsuario(this.usuario).subscribe(
-      response => {
-        this.data = response;
-        this.router.navigate(['/sign-in']);
-        console.log(this.data);
-      },
-      error => {
-        console.error('Error al registrar usuario', error);
+        console.log('Mensaje:', response.message);
+        console.log('Estado:', response.status);
+
+        if (response.status) {
+          this.display = 'block'
+        } else {
+          this.cargando = false
+          this.mensajeapi = response.message
+        }
       }
-    );
-  }
 
-  registrarUsuario(usuario: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, usuario);
+    });
   }
 }

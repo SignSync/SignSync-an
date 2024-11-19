@@ -1,19 +1,32 @@
 import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http'; // Importa esto
-
+import { sign_in } from '../interfaces';
+import { Observable,BehaviorSubject  } from 'rxjs';
+import { HttpClient} from '@angular/common/http';
+import { ApiResponse } from '../interfaces';
+import { sign_up } from '../interfaces';
 @Injectable({
   providedIn: 'root'
 })
 export class ServicioAPIService {
-  private apiUrl = 'http://127.0.0.1:5000/api'
+  private apiUrl = 'http://127.0.0.1:5000/';
+  private userSubject = new BehaviorSubject<any>(null);
+  user$ = this.userSubject.asObservable();
   constructor(private http: HttpClient) { }
 
-  getAPI(data: any, api_link: string): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(`${this.apiUrl}/${api_link}`, data, {headers});
+  sign_in(datos: sign_in): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(this.apiUrl + 'api/sign-in', datos);
+  }
+  //Guardar datos de inicio de sesion
+  saveUserData(userData: any): void {
+    this.userSubject.next(userData);
+  }
+
+  // Limpiar el estado del usuario (cerrar sesión)
+  clearUserData(): void {
+    this.userSubject.next(null);
+  }
+  sign_up(data:sign_up):Observable<ApiResponse>{
+    return this.http.post<ApiResponse>(this.apiUrl + 'api/sign-up', data);
   }
 }
 

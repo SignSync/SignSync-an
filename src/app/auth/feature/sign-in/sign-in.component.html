@@ -28,6 +28,9 @@
       <div class="">
         <h1 class="fw-bold">Ingresar</h1>
         <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="d-block">
+          <div *ngIf="mensajeapi" class="border-2 border border-danger d-flex justify-content-center align-items-center bg-danger-subtle mb-1">
+            <p class="my-2 text-danger">{{ mensajeapi }}</p>
+          </div>
           <div class="input-group">
             <label class="" for="email">Correo electronico</label>
             <input type="email" formControlName="correo" placeholder="correo@mail.com">
@@ -37,7 +40,7 @@
             <input type="password" formControlName="contrasena" placeholder="Contraseña">
           </div>
           <button type="submit" class="btn-login">Ingresar</button>
-          <span class="register-link">¿Aún no tienes una cuenta? <a href="/auth/sign-up">Regístrate</a></span>
+          <span class="register-link">¿Aún no tienes una cuenta? <a href="/sign-up">Regístrate</a></span>
         </form>
       </div>
 
