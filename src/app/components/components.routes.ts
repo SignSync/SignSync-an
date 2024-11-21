@@ -23,8 +23,8 @@ const navRoutes: unknown = [
   },
   {
     path: 'dashboard',
-    loadComponent: () => import('./dashboard/todos/todos.component')
-  }
+    loadChildren: () => import('./dashboard/dashboard.routes')
+  },
 ];
 
 // Fuerza la conversión a Routes

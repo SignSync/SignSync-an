@@ -5,7 +5,7 @@
       <ul class="list-unstyled">
         <li class="mb-3">
           <button class="btn btn-outline-dark w-100 d-flex align-items-center">
-            <i class="fas fa-chart-bar"></i> Todos
+            <i class="fas fa-chart-bar"></i>Todos
           </button>
         </li>
         <li class="mb-3">
@@ -54,9 +54,12 @@
           <div *ngFor="let grafica of graficas; let isFirst = first" [class.active]="isFirst" class="carousel-item">
             <div class="card mx-auto shadow-sm" style="max-width: 80%;">
               <div class="card-body">
-                <h5 class="card-title text-center">{{ grafica.titulo }}</h5>
-                <h6 class="card-title text-center">{{ grafica.preguntas[0][2]}}</h6>
-                <img [src]="getURL_img(grafica.preguntas[0][1])" alt="Gráfico" class="d-block w-100">
+                <h5 class="card-title text-center">{{ param }}</h5>
+                <h6 class="card-title text-center">{{ grafica[2]}}</h6>
+                <img [src]="getURL_img(grafica[1])" alt="Gráfico" class="d-block w-100">
+                <li *ngFor="let opcion of grafica[3]">
+                  {{ opcion }}
+                </li>
               </div>
             </div>
           </div>

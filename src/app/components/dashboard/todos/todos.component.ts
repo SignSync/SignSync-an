@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ServicioAPIService } from '../../servicio-api.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit} from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { ServDashboardService } from '../serv-dashboard.service';
+import { dashboardResponse } from '../../../interfaces';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-todos',
   standalone: true,
-  imports: [HttpClientModule],
-  providers:[ServicioAPIService],
+  imports: [HttpClientModule, CommonModule],
+  providers:[ServDashboardService],
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.css'
 })
@@ -15,20 +16,62 @@ import { HttpClientModule } from '@angular/common/http';
 
 export default class TodosComponent implements OnInit {
 
-  constructor(private http: HttpClient) {}
+  constructor(private serv:ServDashboardService) {}
+
+  context!:object;
+  graficas: any[] = [];
+
 
   ngOnInit(): void {
-    // this.recuperarGraficas(this.usuario).subscribe(
-    //   response => {
-    //     this.data = response;
-    //     this.router.navigate(['/sign-in']);
-    //     console.log(this.data);
-    //   },
-    //   error => {
-    //     console.error('Error al registrar usuario', error);
-    //   }
-    // );
+    const param = 'todos';
+    this.serv.recuperarGraficas(param).subscribe({
+      next: (response: dashboardResponse) => {
+        // console.log('Mensaje:', response.message);
+        // console.log('Estado:', response.status);
+        // console.log('Context:', response.context);
+        this.context = response.context
+        console.log(this.context)
+        this.procesarDatos(response.context);
 
+
+      },
+      error: (err:any) => {
+        console.error('Error al realizar la solicitud:', err);
+      },
+      complete: () => {
+        console.info('Solicitud completada.');
+      },
+    });
+  }
+
+  procesarDatos(response: any): void {
+    // Procesar cada contenido y agregarlo a la lista de gráficas
+    this.graficas = [];
+
+    const secciones = [
+      { key: 'contentAceptabilidad', label: 'Aceptabilidad' },
+      { key: 'contentCrecimiento', label: 'Crecimiento' },
+      { key: 'contentFuncionalidad', label: 'Funcionalidad' },
+      { key: 'contentRentabilidad', label: 'Rentabilidad' },
+      { key: 'contentSatisfaccion', label: 'Satisfacción' },
+      { key: 'contentViabilidad', label: 'Viabilidad' }
+    ];
+
+    for (const seccion of secciones) {
+      const contenido = response[seccion.key];
+      if (contenido && contenido.preguntas_url) {
+        this.graficas.push({
+          titulo: seccion.label,
+          preguntas: contenido.preguntas_url // El array con las preguntas
+        });
+      }
+    }
+
+    console.log('Gráficas procesadas:', this.graficas);
+  }
+
+  getURL_img(url:string):string{
+    return `http://127.0.0.1:5000/${url}`
   }
 
 }

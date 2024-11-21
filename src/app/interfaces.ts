@@ -14,3 +14,9 @@ export interface sign_up {
   correo:string,
   contrasena:string
 }
+
+export interface dashboardResponse {
+  message: string;
+  status: boolean;
+  context:any;
+}
