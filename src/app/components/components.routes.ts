@@ -20,6 +20,10 @@ const navRoutes: unknown = [
   {
     path: 'calendario',
     loadComponent: () => import('./calendario/calendario.component')
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./dashboard/todos/todos.component')
   }
 ];
 
