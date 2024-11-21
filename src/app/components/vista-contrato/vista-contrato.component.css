@@ -26,3 +26,78 @@
 .precios p{
   font-size: 20px;
 }
+.input_edicion{
+  background: none;
+  outline: none;
+  color: white;
+}
+.input_activo{
+  border: none;
+  border-bottom: 0.2px solid white;
+}
+.input_disable{
+  border: none;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Invierte los colores del ícono */
+  cursor: pointer;
+}
+
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+}
+.form-group input{
+  height: 40px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 12px;
+}
+.form-group select{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px;
+}
+.enviar{
+  background-color: #7a97ff;
+  color: white;
+  padding: 10px;
+  border: 1px solid #7a97ff;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 1s;
+}
+.enviar:hover{
+  border: 1.5px solid #7a97ff;
+  background-color: #3a63f8;
+}
+.agregar{
+  color: #7a97ff;
+  cursor: pointer;
+}
+.agregar:hover{
+  color: #5a7cf7;
+}
+.eliminar{
+  transition: all 0.5s;
+}
+.eliminar:hover{
+  color: #912029;
+}
+.editar{
+  transition: all 0.5s;
+}
+.editar:hover{
+  color: yellow !important;
+}
+.guardar{
+  transition: all 0.5s;
+}
+.guardar:hover{
+  color: #2eeb28 !important;
+}
+

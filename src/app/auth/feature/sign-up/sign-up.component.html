@@ -40,8 +40,8 @@
             <label class="" for="email">Contraseña</label>
             <input type="password" formControlName="contrasena" placeholder="Contraseña">
           </div>
-          <button type="submit" class="btn-login">Registrar</button>
-          <span class="register-link">¿Ya cuentas con una cuenta? <a href="/auth/sign-in">Inicia sesion</a></span>
+          <button type="submit" class="btn-login" [disabled]="cargando">Registrar</button>
+          <span class="register-link">¿Ya cuentas con una cuenta? <a href="/sign-in">Inicia sesion</a></span>
         </form>
       </div>
 
@@ -54,6 +54,24 @@
         </div>
     </div>
 
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade show" [style.display]="display"></div>
+
+<!-- Modal -->
+<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" [style.display]="display">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Registro Completo</h1>
+      </div>
+      <div class="modal-body">
+        <p>Se registro con exito al usuario</p>
+      </div>
+      <div class="modal-footer">
+        <a href="/sign-in" class="btn-login" style="width: auto;">Ir a Inicia de sesion</a>
+      </div>
     </div>
   </div>
 </div>
