@@ -24,13 +24,13 @@
         </div>
         <div class="dropdown">
           <p class="m-0 ms-3" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="user-select: none">
-            Dianis Fotografía
+            {{usuario}}
           </p>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/miperfil">Mi perfil</a></li>
             <li><a class="dropdown-item" href="/miempresa">Mi empresa</a></li>
             <li><a class="dropdown-item" href="/contratos">Mis contratos</a></li>
-            <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+            <li><a class="dropdown-item" (click)="cerrarsesion()" style="cursor: pointer;">Cerrar sesión</a></li>
           </ul>
         </div>
       </div>
@@ -64,19 +64,27 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar contrato nuevo</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar"></button>
       </div>
       <div class="modal-body">
-        <form>
-          <div class="mb-3 form-group">
+        <p *ngIf="!empresa" class="m-0 text" >Estas a un paso de administrar tus contratos pero primero termina de crear tu perfil de empresa</p>
+        <button *ngIf="!empresa" class="enviar" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">Terminar mi datos de empresa</button>
+        <form [formGroup]="formcontrato" (ngSubmit)="agregarcontrato()" *ngIf="empresa">
+          <div class="mb-3 formulario-group">
             <label for="NombreContrato">Nombre del contrato</label>
             <input type="text" formControlName="nombre" placeholder="Ingresa el nombre del usuario">
           </div>
           <div class="row mb-3">
-            <div class="col form-group">
+            <div class="col formulario-group">
               <label for="">Tipo de contrato</label>
               <select formControlName="tipo">
-                <option value="">Servicio</option>
+                <option value="Servicios">Servicios</option>
+                <option value="Venta">Venta</option>
+                <option value="Alquiler">Alquiler</option>
+                <option value="Licencia">Licencia</option>
+                <option value="Distribución">Distribución</option>
+                <option value="Trabajo">Trabajo</option>
+                <option value="Asociación">Asociación</option>
               </select>
             </div>
             <div class="col">
@@ -105,73 +113,132 @@
               </div>
             </div>
           </div>
-          <div class="mb-3 form-group">
+          <div class="mb-3 formulario-group">
             <label for="lugar">Lugar</label>
             <input type="text" formControlName="lugar" id="" placeholder="Ingresa el lugar del contrato">
           </div>
           <div class="row mb-3">
-            <div class="col form-group">
+            <div class="col formulario-group">
               <label for="">Fecha de inicio del contrato</label>
               <input type="date" formControlName="fecha_inicio" id="">
             </div>
-            <div class="col form-group">
+            <div class="col formulario-group">
               <label for="">Fecha de entrega del contrato</label>
               <input type="date" formControlName="fecha_entrega" id="">
             </div>
           </div>
-          <div class="mb-3 form-group">
-            <p>Si no tienes contratista puedes crear uno dando click <a class="agregar" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"> Aqui</a></p>
-            <label for="">Contratista</label>
-            <select formControlName="id_contratista" id="">
-              <option value="">Contratista 1</option>
-            </select>
+          <div class="mb-3 formulario-group">
+            <div *ngIf="!contratistas">
+              <p>No cuentas con contratistas: Puedes registar nuevos contratistas <a class="agregar" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"> Aqui</a></p>
+            </div>
+            <div class="d-flex flex-column" *ngIf="contratistas">
+              <label for="">Contratista</label>
+              <select formControlName="id_contratista" id="contratista-select">
+                <option *ngFor="let contratista of contratislista" [value]="contratista.idContratista">
+                  {{contratista.nombre}}
+                </option>
+              </select>
+            </div>
           </div>
           <div class="d-flex flex-row-reverse">
             <button type="submit" class="enviar">Crear contrato</button>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="submit" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" class="enviar">Agregar nuevo contratista</button>
+      <div class="modal-footer" >
+        <button type="submit" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" class="enviar" *ngIf="empresa">Agregar nuevo contratista</button>
       </div>
     </div>
   </div>
 </div>
 <!-- Modal  --->
-<div class="modal fade" id="exampleModalToggle2" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalToggleLabel2"
-  aria-hidden="true">
+<div class="modal fade" id="exampleModalToggle2" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalToggleLabel2">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo contratista</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar"></button>
       </div>
       <div class="modal-body">
-        <form action="">
-          <div class="mb-3 form-group">
+        <p *ngIf="!empresa" class="m-0 text" >Estas a un paso de administrar tus contratos pero primero termina de crear tu perfil de empresa</p>
+        <button *ngIf="!empresa" class="enviar" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">Terminar mi datos de empresa</button>
+        <form action="" [formGroup]="formContratista" (ngSubmit)="agregarcontratista()" *ngIf="empresa">
+          <div class="mb-3 formulario-group">
             <label for="NombreContrato">Nombre del contratista</label>
-            <input type="text" placeholder="Ingresa el nombre del contratista">
+            <input type="text" placeholder="Ingresa el nombre del contratista" formControlName="nombre" name="nombre">
           </div>
           <div class="row mb-3">
-            <div class="col form-group">
+            <div class="col formulario-group">
               <label for="NombreContrato">Edad</label>
-              <input type="number" placeholder="Ingresa la edad del contratista">
+              <input type="number" placeholder="Ingresa la edad del contratista" formControlName="edad" name="edad">
             </div>
-            <div class="col form-group">
+            <div class="col formulario-group">
               <label for="NombreContrato">Ocupacion</label>
-              <input type="text" placeholder="Ingresa la Ocupacion del contratista">
+              <input type="text" placeholder="Ingresa la Ocupacion del contratista" formControlName="ocupacion" name="ocupacion">
             </div>
           </div>
-          <div class="mb-3 form-group">
+          <div class="mb-3 formulario-group">
             <label for="Lugar">Domicilio</label>
-            <input type="text" name="" id="" placeholder="Ingresa el domicilio del contratista">
+            <input type="text" name="" id="" placeholder="Ingresa el domicilio del contratista" formControlName="domicilio" name="domicilio">
           </div>
-          <div class="mb-3 form-group">
+          <div class="mb-3 formulario-group">
             <label for="Telefono">Telefono</label>
-            <input type="text" name="" id="" placeholder="Ingresa el Telefono del contratista">
+            <input type="text" name="" id="" placeholder="Ingresa el Telefono del contratista" formControlName="telefono" name="telefono">
           </div>
           <div class="d-flex flex-row-reverse">
             <button type="submit" class="enviar">Agregar contratista</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" *ngIf="empresa">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal  Crear empresa--->
+<div class="modal fade" id="exampleModalToggle3" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalToggleLabel3"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Crear empresa</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" [formGroup]="formempresa" (ngSubmit)="agregarempresa()">
+          <div class="mb-3 formulario-group">
+            <label for="NombreContrato">Nombre de la empresa</label>
+            <input type="text" placeholder="Ingresa el nombre de la empresa" formControlName="nombre" name="nombre">
+          </div>
+          <div class="row mb-3">
+            <div class="col formulario-group">
+              <label for="NombreContrato">Sector</label>
+              <input type="text" placeholder="Ingresa el sector de la empresa" formControlName="sector" name="sector">
+            </div>
+            <div class="col formulario-group">
+              <label for="NombreContrato">Ubicacion</label>
+              <input type="text" placeholder="Ingresa la ubicacion de la empresa" formControlName="ubicacion" name="ubicacion">
+            </div>
+          </div>
+          <div class="mb-3 formulario-group">
+            <label for="Lugar">Correo</label>
+            <input type="text" name="" id="" placeholder="Ingresa el correo de laempresa" formControlName="correo" name="correo">
+          </div>
+          <div class="mb-3 formulario-group">
+            <label for="Telefono">Telefono</label>
+            <input type="text" name="" id="" placeholder="Ingresa el telefono de la empresa" formControlName="telefono" name="telefono">
+          </div>
+          <div class="mb-3 formulario-group">
+            <label for="Telefono">Sitio Web:</label>
+            <input type="text" name="" id="" placeholder="Ingresa el sitio web de la empresa" formControlName="sitio_web" name="sitio_web">
+          </div>
+          <div class="mb-3 formulario-group">
+            <label for="Telefono">Descripcion:</label>
+            <textarea name="" id="" formControlName="descripcion" name="descripcion" ></textarea>
+          </div>
+          <div class="d-flex flex-row-reverse">
+            <button type="submit" class="enviar" data-bs-dismiss="offcanvas">Terminar</button>
           </div>
         </form>
       </div>
@@ -190,4 +257,19 @@
   <div class="offcanvas-body">
     ...
   </div>
+</div>
+
+<div class="overlay z-2" *ngIf="cargando || empresacreada"></div>
+<div class="bg-light w-25 position-absolute top-50 start-50 translate-middle p-5 text-center rounded-3 border z-3" *ngIf="cargando">
+  <h3>Cargando</h3>
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div class="bg-light w-25 position-absolute top-50 start-50 translate-middle p-5 text-center rounded-3 border z-3"  *ngIf="empresacreada">
+  <h3>Empresa Creada</h3>
+  <div>
+    <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+  </div>
+  <button class="enviar" (click)="terminar()">Terminar</button>
 </div>

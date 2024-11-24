@@ -4,22 +4,24 @@ import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder } from '@angul
 import { ServicioAPIService } from '../../../components/servicio-api.service';
 import { sign_in } from '../../../interfaces';
 import { ApiResponse } from '../../../interfaces';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule , CommonModule],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css'
 })
 
 
-export default class SignInComponent {
+export default class SignInComponent{
   private apiUrl = 'http://127.0.0.1:5000/api/sign-in';
-  constructor(private fb:FormBuilder,public servicio:ServicioAPIService){}
+  constructor(private fb:FormBuilder,public servicio:ServicioAPIService,private router: Router){}
 
   data:any;
   mensajeapi = ''
   formGroup!:FormGroup;
+  cargando:boolean = false;
   usuario:sign_in = {
     correo:'',
     contrasena:''
@@ -39,7 +41,7 @@ export default class SignInComponent {
   onSubmit(): void {
     this.mensajeapi = ''
     this.usuario = this.formGroup.value;
-
+    this.cargando = true
     this.servicio.sign_in(this.usuario).subscribe({
       next: (response: ApiResponse) => {
         console.log('Mensaje:', response.message);
@@ -52,6 +54,7 @@ export default class SignInComponent {
             nombre: response.user_name,
             correo: response.correo
           })
+          this.router.navigate(['/contratos']);
         } else {
           this.mensajeapi = response.message
         }
@@ -61,6 +64,7 @@ export default class SignInComponent {
       },
       complete: () => {
         console.info('Solicitud completada.');
+        this.cargando = false
       },
     });
   }

@@ -90,22 +90,30 @@
 .color-option input[type="radio"]:checked + .color-circle {
   border-color: #000;
 }
-.form-group{
+.formulario-group{
   display: flex;
   flex-direction: column;
 }
-.form-group input{
+.formulario-group input{
   height: 40px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 12px;
 }
-.form-group select{
+.formulario-group select{
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 12px;
+}
+.formulario-group textarea{
+  min-height: 80px;
+  max-height: 120px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 12px;
 }
 .enviar{
   background-color: #7a97ff;
