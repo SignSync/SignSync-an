@@ -11,11 +11,11 @@
           <p class="fw-light">En proceso</p>
         </div>
         <div class="col-auto">
-          <h5 class="fw-bolder">12</h5>
+          <h5 class="fw-bolder">11</h5>
           <p class="fw-light">Por comenzar</p>
         </div>
         <div class="col-auto">
-          <h5 class="fw-bolder">82</h5>
+          <h5 class="fw-bolder">{{cantidadContrato}}</h5>
           <p class="fw-light">Total de Proyectos</p>
         </div>
       </div>
@@ -30,9 +30,9 @@
     </div>
   </div>
   <div class="row ps-3">
-    <div class="cards rounded-4 bgcontrato p-3 me-2 mt-2">
+    <div class="cards rounded-4 bgcontrato p-3 me-2 mt-2" *ngFor="let contrato of contratos">
       <div class="row row-cols-2 justify-content-between px-3">
-        <p class="col fw-light">Fecha de entrega</p>
+        <p class="col fw-light">Fecha de entrega: {{contrato.contrato_data.fecha_entrega}}</p>
         <div class="col text-end dropend">
           <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown"
             aria-expanded="false"></i>
@@ -43,140 +43,12 @@
           </ul>
         </div>
       </div>
-      <h3 class="text-center">01 Contrato</h3>
-      <p class="text-center fw-light">Tipo de Paquete</p>
-      <div class="px-2">
-        <p class="mt-3 mb-0">Progreso</p>
-        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0"
-          aria-valuemax="100">
-          <div class="progress-bar colorbar" style="width: 60%"></div>
-        </div>
-        <p class="text-end">60%</p>
-      </div>
+      <h3 class="text-center">{{contrato.contrato_data.nombre}}</h3>
+      <p class="text-center fw-light">{{contrato.contrato_data.tipo}}</p>
       <div class="row row-cols-2 justify-content-between px-3">
         <i class="bi bi-plus-circle-fill col" style="font-size: 25px;"></i>
         <div class="col rounded-pill bg-restantes d-flex align-items-center justify-content-center">
-          <p class="mb-0">2 días faltantes</p>
-        </div>
-      </div>
-    </div>
-    <div class="cards rounded-4 bgcontrato p-3 me-2 mt-2">
-      <div class="row row-cols-2 justify-content-between px-3">
-        <p class="col fw-light">Fecha de entrega</p>
-        <div class="col text-end dropend">
-          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown"
-            aria-expanded="false"></i>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Action two</a></li>
-            <li><a class="dropdown-item" href="#">Action three</a></li>
-          </ul>
-        </div>
-      </div>
-      <h3 class="text-center">01 Contrato</h3>
-      <p class="text-center fw-light">Tipo de Paquete</p>
-      <div class="px-2">
-        <p class="mt-3 mb-0">Progreso</p>
-        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0"
-          aria-valuemax="100">
-          <div class="progress-bar colorbar" style="width: 60%"></div>
-        </div>
-        <p class="text-end">60%</p>
-      </div>
-      <div class="row row-cols-2 justify-content-between px-3">
-        <i class="bi bi-plus-circle-fill col" style="font-size: 25px;"></i>
-        <div class="col rounded-pill bg-restantes d-flex align-items-center justify-content-center">
-          <p class="mb-0">2 días faltantes</p>
-        </div>
-      </div>
-    </div>
-    <div class="cards rounded-4 bgcontrato p-3 me-2 mt-2">
-      <div class="row row-cols-2 justify-content-between px-3">
-        <p class="col fw-light">Fecha de entrega</p>
-        <div class="col text-end dropend">
-          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown"
-            aria-expanded="false"></i>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Action two</a></li>
-            <li><a class="dropdown-item" href="#">Action three</a></li>
-          </ul>
-        </div>
-      </div>
-      <h3 class="text-center">01 Contrato</h3>
-      <p class="text-center fw-light">Tipo de Paquete</p>
-      <div class="px-2">
-        <p class="mt-3 mb-0">Progreso</p>
-        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0"
-          aria-valuemax="100">
-          <div class="progress-bar colorbar" style="width: 60%"></div>
-        </div>
-        <p class="text-end">60%</p>
-      </div>
-      <div class="row row-cols-2 justify-content-between px-3">
-        <i class="bi bi-plus-circle-fill col" style="font-size: 25px;"></i>
-        <div class="col rounded-pill bg-restantes d-flex align-items-center justify-content-center">
-          <p class="mb-0">2 días faltantes</p>
-        </div>
-      </div>
-    </div>
-    <div class="cards rounded-4 bgcontrato p-3 me-2 mt-2">
-      <div class="row row-cols-2 justify-content-between px-3">
-        <p class="col fw-light">Fecha de entrega</p>
-        <div class="col text-end dropend">
-          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown"
-            aria-expanded="false"></i>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Action two</a></li>
-            <li><a class="dropdown-item" href="#">Action three</a></li>
-          </ul>
-        </div>
-      </div>
-      <h3 class="text-center">01 Contrato</h3>
-      <p class="text-center fw-light">Tipo de Paquete</p>
-      <div class="px-2">
-        <p class="mt-3 mb-0">Progreso</p>
-        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0"
-          aria-valuemax="100">
-          <div class="progress-bar colorbar" style="width: 60%"></div>
-        </div>
-        <p class="text-end">60%</p>
-      </div>
-      <div class="row row-cols-2 justify-content-between px-3">
-        <i class="bi bi-plus-circle-fill col" style="font-size: 25px;"></i>
-        <div class="col rounded-pill bg-restantes d-flex align-items-center justify-content-center">
-          <p class="mb-0">2 días faltantes</p>
-        </div>
-      </div>
-    </div>
-    <div class="cards rounded-4 bgcontrato p-3 me-2 mt-2">
-      <div class="row row-cols-2 justify-content-between px-3">
-        <p class="col fw-light">Fecha de entrega</p>
-        <div class="col text-end dropend">
-          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown"
-            aria-expanded="false"></i>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Action two</a></li>
-            <li><a class="dropdown-item" href="#">Action three</a></li>
-          </ul>
-        </div>
-      </div>
-      <h3 class="text-center">01 Contrato</h3>
-      <p class="text-center fw-light">Tipo de Paquete</p>
-      <div class="px-2">
-        <p class="mt-3 mb-0">Progreso</p>
-        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0"
-          aria-valuemax="100">
-          <div class="progress-bar colorbar" style="width: 60%"></div>
-        </div>
-        <p class="text-end">60%</p>
-      </div>
-      <div class="row row-cols-2 justify-content-between px-3">
-        <i class="bi bi-plus-circle-fill col" style="font-size: 25px;"></i>
-        <div class="col rounded-pill bg-restantes d-flex align-items-center justify-content-center">
-          <p class="mb-0">2 días faltantes</p>
+          <p class="mb-0">{{contrato.dias_restantes}} días faltantes</p>
         </div>
       </div>
     </div>

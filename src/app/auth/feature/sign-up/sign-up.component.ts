@@ -11,7 +11,7 @@ interface Usuario{
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
 })
@@ -19,7 +19,9 @@ interface Usuario{
 export default class SignUpComponent implements OnInit{
   constructor(private fb:FormBuilder, private servicio:ServicioAPIService){}
   display = 'none'
-  cargando = false
+  cargando:boolean = false;
+  confirmar:boolean = false;
+  mensajeerror = ''
   data: any;
   formGroup!:FormGroup;
   usuario:Usuario = {
@@ -42,21 +44,35 @@ export default class SignUpComponent implements OnInit{
 
   onSubmit():void{
     this.cargando = true
-    this.usuario = this.formGroup.value;
+    const {usuario,correo,contrasena} = this.formGroup.value
+    this.usuario = {
+      usuario:usuario,
+      correo:correo,
+      contrasena: contrasena
+    }
     this.servicio.sign_up(this.usuario).subscribe({
       next: (response: ApiResponse) => {
-        console.log(response);
-
         console.log('Mensaje:', response.message);
         console.log('Estado:', response.status);
 
         if (response.status) {
-          this.display = 'block'
-        } else {
+          console.log('Registro exitoso');
           this.cargando = false
+          this.confirmar = true
+        } else {
           this.mensajeapi = response.message
         }
-      }
+      },
+      error: (err) => {
+        console.error('Error al realizar la solicitud:', err);
+        console.log(err.error.message)
+        this.mensajeerror = err.error.message
+        this.cargando = false
+      },
+      complete: () => {
+        console.info('Solicitud completada.');
+        this.cargando = false
+      },
 
     });
   }
