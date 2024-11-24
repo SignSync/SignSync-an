@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ServDashboardService } from '../serv-dashboard.service';
 import { dashboardResponse } from '../../../interfaces';
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export default class GraficasComponent implements OnInit {
 
-  constructor(private serv:ServDashboardService, private route: ActivatedRoute) {}
+  constructor(private serv:ServDashboardService, private route: ActivatedRoute, private router:Router) {}
 
   context!:object;
   param!:string;
@@ -49,4 +49,7 @@ export default class GraficasComponent implements OnInit {
     return `http://127.0.0.1:5000/${url}`
   }
 
+  navigateToUrl(tabla:string):void {
+    this.router.navigate([`dashboard/graficas/${tabla}`]);
+  }
 }

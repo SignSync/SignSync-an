@@ -1,40 +1,41 @@
 <div class="container-fluid mb-5">
+  <h2 class="text-center fw-bold py-4">Análisis</h2>
   <div class="row">
     <div class="col-md-2 bg-white rounded-3 sidebar shadow-sm p-4">
       <h5 class="text-center fw-bold mb-4">Gráficos</h5>
       <ul class="list-unstyled">
         <li class="mb-3">
-          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+          <button (click)="navigateToUrl('')" class="btn btn-outline-dark w-100 d-flex align-items-center">
             <i class="fas fa-chart-bar"></i>Todos
           </button>
         </li>
         <li class="mb-3">
-          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+          <button (click)="navigateToUrl('viabilidad')" class="btn btn-outline-dark w-100 d-flex align-items-center">
             <i class="fas fa-tachometer-alt"></i> Viabilidad
           </button>
         </li>
         <li class="mb-3">
-          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+          <button (click)="navigateToUrl('rentabilidad')" class="btn btn-outline-dark w-100 d-flex align-items-center">
             <i class="fas fa-dollar-sign"></i> Rentabilidad
           </button>
         </li>
         <li class="mb-3">
-          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+          <button (click)="navigateToUrl('aceptabilidad')" class="btn btn-outline-dark w-100 d-flex align-items-center">
             <i class="fas fa-dollar-sign"></i> Aceptabilidad
           </button>
         </li>
         <li class="mb-3">
-          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+          <button (click)="navigateToUrl('funcionalidad')" class="btn btn-outline-dark w-100 d-flex align-items-center">
             <i class="fas fa-dollar-sign"></i> Funcionalidad
           </button>
         </li>
         <li class="mb-3">
-          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
-            <i class="fas fa-dollar-sign"></i> Sastifacción
+          <button (click)="navigateToUrl('satisfaccion')" class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-dollar-sign"></i> Satisfacción
           </button>
         </li>
         <li class="mb-3">
-          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+          <button (click)="navigateToUrl('crecimiento')" class="btn btn-outline-dark w-100 d-flex align-items-center">
             <i class="fas fa-dollar-sign"></i> Crecimiento y seguridad
           </button>
         </li>
@@ -47,7 +48,6 @@
     </div>
 
     <div class="col-md-10">
-      <h2 class="text-center fw-bold py-4">Análisis</h2>
       <!-- Carrusel -->
       <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">

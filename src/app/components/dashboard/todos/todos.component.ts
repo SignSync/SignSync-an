@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ServDashboardService } from '../serv-dashboard.service';
 import { dashboardResponse } from '../../../interfaces';
 import { CommonModule } from '@angular/common';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-todos',
@@ -16,7 +17,7 @@ import { CommonModule } from '@angular/common';
 
 export default class TodosComponent implements OnInit {
 
-  constructor(private serv:ServDashboardService) {}
+  constructor(private serv:ServDashboardService, private router:Router) {}
 
   context!:object;
   graficas: any[] = [];
@@ -72,6 +73,10 @@ export default class TodosComponent implements OnInit {
 
   getURL_img(url:string):string{
     return `http://127.0.0.1:5000/${url}`
+  }
+
+  navigateToUrl(tabla:string):void {
+    this.router.navigate([`dashboard/graficas/${tabla}`]);
   }
 
 }
