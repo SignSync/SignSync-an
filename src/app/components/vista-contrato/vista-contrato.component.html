@@ -1,74 +1,123 @@
-<section class="bg_principal py-5 rounded-4">
+  <section class="bg_principal py-5 rounded-4">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <div class="row w-100 ps-1">
     <div class="ms-2 bg-secundario rounded-end-circle py-2 volver">
-      <a href="">
+      <a href="/contratos">
         <i class="bi bi-arrow-left-circle" style="font-size: 25px; color:white"></i>
       </a>
     </div>
-    <input type="text"  class="col-6 input_edicion fs-2 fw-semibold" value="Contrato 1" formControlName="nombre_contrato" [ngClass]="{ 'input_disable': !isDisabled, 'input_activo': isDisabled }">
+    <input type="text"  class="col-6 input_edicion fs-2 fw-semibold text-dark" [value]="infodocumento.nombre" formControlName="nombre_contrato" [ngClass]="{ 'input_disable': !isDisabled, 'input_activo': isDisabled }">
     <div class="row col-5 justify-content-end">
       <button class="bg-secundario mx-2 rounded-pill w-25 border-0" (click)="editar()" [attr.type]="isDisabled ? 'submit' : 'button'" [ngClass]="{ 'editar': !isDisabled, 'guardar': isDisabled }"><i class="bi fs-5" [ngClass]="{ 'bi-pencil-square': !isDisabled, 'bi-floppy': isDisabled }"></i></button>
-      <button class="bg-secundario mx-2 rounded-pill w-25 border-0 eliminar"><i class="bi bi-trash-fill fs-5" ></i></button>
+      <button type="button" class="bg-secundario mx-2 rounded-pill w-25 border-0 eliminar" (click)="eliminar()"><i class="bi bi-trash-fill fs-5" ></i></button>
     </div>
   </div>
   <div class="row p-5">
     <div class="col-md-4">
       <div class="bg-secundario p-3 rounded-4">
-        <h3 class="border-bottom border-light border-2">CONTRATISTA</h3>
-        <p><b class="me-2">Nombre:</b><input type="text" class="input_edicion" value="Jacobo"  formControlName="nombre_contratista" [ngClass]="{ 'input_disable': !isDisabled, 'input_activo': isDisabled }"></p>
-        <p><b class="me-2">Edad:</b><input type="text" class="input_edicion" value="20"  formControlName="edad_contratista" [ngClass]="{ 'input_disable': !isDisabled, 'input_activo': isDisabled }"></p>
-        <p><b class="me-2">Ocupación:</b><input type="text" class="input_edicion" value="Ocupación"  formControlName="ocupacion" [ngClass]="{ 'input_disable': !isDisabled, 'input_activo': isDisabled }"></p>
-        <p><b class="me-2">Domicilio;</b><input type="text" class="input_edicion" value="Domicilio"  formControlName="domicilio" [ngClass]="{ 'input_disable': !isDisabled, 'input_activo': isDisabled }"></p>
-        <p><b class="me-2">Teléfono;</b><input type="text" class="input_edicion" value="477-xxx-xxxx"  formControlName="telefono" [ngClass]="{ 'input_disable': !isDisabled, 'input_activo': isDisabled }"></p>
+        <h3 class="">CONTRATISTA</h3>
+        <select formControlName="id_contratista" class="w-100 select_editar" *ngIf="isDisabled" >
+          <option
+          [value]="infoContratista.idContratista"
+          [selected]="formGroup.get('id_contratista')?.value === infoContratista.idContratista">
+          {{infoContratista.nombre}}
+        </option>
+          <option *ngFor="let contratista of arrayRecibido" [value]="contratista.idContratista">
+            {{contratista.nombre}}
+          </option>
+        </select>
+        <div *ngIf="!isDisabled">
+          <p><b class="me-2">Nombre:</b>{{infoContratista.nombre}}</p>
+          <p><b class="me-2">Edad:</b>{{infoContratista.edad}}</p>
+          <p><b class="me-2">Ocupación:</b>{{infoContratista.ocupacion}}</p>
+          <p><b class="me-2">Domicilio;</b>{{infoContratista.domicilio}}</p>
+          <p><b class="me-2">Teléfono;</b>{{infoContratista.telefono}}</p>
+        </div>
       </div>
       <div class="bg-secundario p-3 rounded-4 mt-2">
-        <h3 class="border-bottom border-light border-2">Lugar y fecha</h3>
-        <p><b class="me-2"><i class="bi bi-calendar-event me-1"></i>Fecha de inicio:</b><input type="date" class="input_edicion" value="2018-07-22"  formControlName="fecha_inicio" [ngClass]="{ 'input_disable': !isDisabled, 'input_activo': isDisabled }"></p>
-        <p><b class="me-2"><i class="bi bi-calendar-event me-1"></i>Fecha de entrega:</b><input type="date" class="input_edicion" value="2018-07-22"  formControlName="fecha_final" [ngClass]="{ 'input_disable': !isDisabled, 'input_activo': isDisabled }"></p>
-        <p><b class="me-2"><i class="bi bi-geo-alt-fill me-1"></i>Ubicacio:</b><input type="text" class="input_edicion" value="Leon"  formControlName="ubicacion" [ngClass]="{ 'input_disable': !isDisabled, 'input_activo': isDisabled }"></p>
+        <h3 class="">Lugar y fecha</h3>
+        <p><b class="me-2"><i class="bi bi-calendar-event me-1"></i>Fecha de inicio:</b><input type="date" class="input_edicion" [value]="infodocumento.fecha_inicio" formControlName="fecha_inicio" [ngClass]="{ 'input_disable': !isDisabled, 'input_activo': isDisabled }"></p>
+        <p><b class="me-2"><i class="bi bi-calendar-event me-1"></i>Fecha de entrega:</b><input type="date" class="input_edicion" [value]="infodocumento.fecha_entrega"  formControlName="fecha_final" [ngClass]="{ 'input_disable': !isDisabled, 'input_activo': isDisabled }"></p>
+        <p><b class="me-2"><i class="bi bi-geo-alt-fill me-1"></i>Ubicacio:</b><input type="text" class="input_edicion" [value]="infodocumento.lugar"  formControlName="ubicacion" [ngClass]="{ 'input_disable': !isDisabled, 'input_activo': isDisabled }"></p>
+        <div class="d-flex"><b class="me-2"><i class="bi bi-archive me-1"></i>Tipo:</b>
+          <select name="" id="" *ngIf="isDisabled" class="tipo" formControlName="tipo">
+                <option value="Servicios">Servicios</option>
+                <option value="Venta">Venta</option>
+                <option value="Alquiler">Alquiler</option>
+                <option value="Licencia">Licencia</option>
+                <option value="Distribución">Distribución</option>
+                <option value="Trabajo">Trabajo</option>
+                <option value="Asociación">Asociación</option>
+          </select>
+          <p class="" *ngIf="!isDisabled">{{infodocumento.tipo}}</p>
+        </div>
+        <div class="d-flex align-items-center"><b class="me-2"><i class="bi bi-palette-fill me-1"></i>Color:</b>
+          <div *ngIf="!isDisabled" class="rounded-pill" style="height: 40px;width: 40px; " [style.background-color]="infodocumento.color"></div>
+          <div class="color-options" *ngIf="isDisabled">
+            <label class="color-option">
+              <input type="radio" formControlName="color" value="#FEE4CB" name="color">
+              <div class="color-circle" style="background-color: #FEE4CB;"></div>
+              <span>Color 1</span>
+            </label>
+            <label class="color-option">
+              <input type="radio" formControlName="color" value="#FFD3E2" name="color">
+              <div class="color-circle" style="background-color: #FFD3E2;"></div>
+              <span>Color 2</span>
+            </label>
+            <label class="color-option">
+              <input type="radio" formControlName="color" value="#E9E7FD" name="color">
+              <div class="color-circle" style="background-color: #E9E7FD;"></div>
+              <span>Color 3</span>
+            </label>
+            <label class="color-option">
+              <input type="radio" formControlName="color" value="#C8F7DC" name="color">
+              <div class="color-circle" style="background-color: #C8F7DC;"></div>
+              <span>Color 4</span>
+            </label>
+          </div>
+        </div>
       </div>
       <div class="bg-secundario p-3 rounded-4 mt-2">
-        <div class="border-bottom border-light border-2 mb-2 d-flex justify-content-between">
+        <div class="mb-2 d-flex justify-content-between">
           <h3 class="mx-2">Documentos</h3>
           <h3><i class="mx-2 bi bi-file-earmark-plus" type="button" data-bs-toggle="modal" data-bs-target="#subirdocumento"></i></h3>
         </div>
-        <div class="rounded-pill bg_secundario2 mb-2 p-2">
+        <div class="rounded-3 bg_secundario2 mb-2 p-2">
           <p class="ms-2">Documento 1 </p>
         </div>
-        <div class="rounded-pill bg_secundario2 mb-2 p-2">
+        <div class="rounded-3 bg_secundario2 mb-2 p-2">
           <p class="ms-2">Documento 2 </p>
         </div>
       </div>
     </div>
     <div class="col-md-4 mt-md-0 mt-2">
       <div class="bg-secundario p-3 rounded-4">
-        <div class="border-bottom border-light border-2 mb-2 d-flex justify-content-between">
+        <div class="mb-2 d-flex justify-content-between">
           <h3 class="mx-2">Paquetes</h3>
           <h3><i class="mx-2 bi bi-plus-square-dotted" type="button" data-bs-toggle="modal" data-bs-target="#nuevoservicio"></i></h3>
         </div>
         <h5 class="">Paquete 01</h5>
-        <div class="rounded-pill bg_secundario2 mb-2 p-2">
+        <div class="rounded-3 bg_secundario2 mb-2 p-2">
           <p class="ms-2">Servicio 01 </p>
         </div>
-        <div class="rounded-pill bg_secundario2 mb-2 p-2">
+        <div class="rounded-3 bg_secundario2 mb-2 p-2">
           <p class="ms-2">Servicio 02 </p>
         </div>
         <h5 class="">Paquete 02</h5>
-        <div class="rounded-pill bg_secundario2 mb-2 p-2">
+        <div class="rounded-3 bg_secundario2 mb-2 p-2">
           <p class="ms-2">Servicio 01 </p>
         </div>
-        <div class="rounded-pill bg_secundario2 mb-2 p-2">
+        <div class="rounded-3 bg_secundario2 mb-2 p-2">
           <p class="ms-2">Servicio 02 </p>
         </div>
-        <div class="rounded-pill bg_secundario2 mb-2 p-2">
+        <div class="rounded-3 bg_secundario2 mb-2 p-2">
           <p class="ms-2">Servicio 03 </p>
         </div>
       </div>
     </div>
     <div class="col-md-4 mt-md-0 mt-2">
       <div class="bg-secundario p-3 rounded-4">
-        <h3 class="border-bottom border-light border-2 ">Cuentas</h3>
+        <h3 class="">Cuentas</h3>
         <div class="row precios ps-3">
           <p class="col-6">Servicio</p>
           <p class="col-6">$ <b>12,800.00</b></p>
@@ -93,8 +142,7 @@
 
 
 <!-- Modal  de subir documentos--->
-<div class="modal fade" id="subirdocumento" data-bs-backdrop="static" tabindex="-1" aria-labelledby="subirdocumento"
-  aria-hidden="true">
+<div class="modal fade" id="subirdocumento" data-bs-backdrop="static" tabindex="-1" aria-labelledby="subirdocumento">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -102,7 +150,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form [formGroup]="formdocumento" (ngSubmit)="agregardocumento(fileInput)">
           <div class="mb-3 form-group">
             <label for="NombreContrato">Nombre del documento</label>
             <input type="text" formControlName="nombre" placeholder="Ingresa el nombre del usuario">
@@ -110,8 +158,9 @@
 
           <div class="mb-3 form-group">
             <label for="lugar">Documento</label>
-            <input type="file" formControlName="documento" id="" >
+            <input type="file" #fileInput>
           </div>
+
           <div class="d-flex flex-row-reverse">
             <button type="submit" class="enviar">Agregar documento</button>
           </div>
@@ -124,8 +173,7 @@
   </div>
 </div>
 <!-- Modal  de subir servicio--->
-<div class="modal fade" id="nuevoservicio" data-bs-backdrop="static" tabindex="-1" aria-labelledby="subirdocumento"
-  aria-hidden="true">
+<div class="modal fade" id="nuevoservicio" data-bs-backdrop="static" tabindex="-1" aria-labelledby="subirdocumento">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -133,7 +181,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form [formGroup]="formpaquete" (ngSubmit)="agregarpaquete()">
           <div class="mb-3 form-group">
             <label for="NombreContrato">Nombre del paquete</label>
             <input type="text" formControlName="nombre" placeholder="Ingresa el nombre del usuario">
@@ -141,7 +189,7 @@
 
           <div class="mb-3 form-group">
             <label for="lugar">Costo del paquete</label>
-            <input type="number" placeholder="$0000" formControlName="documento" id="" min="1">
+            <input type="number" placeholder="$0000" formControlName="costo" id="" min="1">
           </div>
           <div class="d-flex flex-row-reverse">
             <button type="submit" class="enviar">Agregar paquete</button>
@@ -152,5 +200,12 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
       </div>
     </div>
+  </div>
+</div>
+<div class="overlay z-2" *ngIf="cargando"></div>
+<div class="bg-light w-25 position-absolute top-50 start-50 translate-middle p-5 text-center rounded-3 border z-3" *ngIf="cargando">
+  <h3>Cargando</h3>
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
   </div>
 </div>

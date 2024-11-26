@@ -3,6 +3,7 @@ import { Component, OnInit} from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import { ApiResponse } from '../../../interfaces';
 import { ServicioAPIService } from '../../../components/servicio-api.service';
+import { Router } from '@angular/router';
 interface Usuario{
   usuario:string,
   correo:string,
@@ -17,7 +18,7 @@ interface Usuario{
 })
 
 export default class SignUpComponent implements OnInit{
-  constructor(private fb:FormBuilder, private servicio:ServicioAPIService){}
+  constructor(private fb:FormBuilder, private servicio:ServicioAPIService,private Router:Router){}
   display = 'none'
   cargando:boolean = false;
   confirmar:boolean = false;
@@ -31,6 +32,12 @@ export default class SignUpComponent implements OnInit{
   }
   mensajeapi:string = ''
   ngOnInit(): void {
+    let nombreusuario = this.servicio.getCookie('user_name')
+    if(nombreusuario){
+      console.log(nombreusuario);
+
+      this.Router.navigate(['contratos'])
+    }
     this.formGroup = this.initForm();
   }
 

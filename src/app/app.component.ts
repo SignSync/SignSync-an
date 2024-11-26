@@ -16,9 +16,10 @@ export class AppComponent implements OnInit{
   title = 'SignSync_';
   constructor(public servicio:ServicioAPIService,private router: Router){}
   ngOnInit(): void {
-    let nombreusuario = this.servicio.getCookie('user_name')
+    /*
+
     if(nombreusuario){
-      this.router.navigate(['contratos']);
-    }
+      ;
+    }*/
   }
 }

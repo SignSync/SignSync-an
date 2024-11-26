@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ServicioAPIService } from '../../../components/servicio-api.service';
 import { sign_in } from '../../../interfaces';
-import { ApiResponse } from '../../../interfaces';
+import { ApiResponse,ApiResponseEmpresa } from '../../../interfaces';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-in',
@@ -19,6 +19,7 @@ export default class SignInComponent{
   constructor(private fb:FormBuilder,public servicio:ServicioAPIService,private router: Router){}
 
   data:any;
+  idempresa:number|any
   mensajeapi = ''
   formGroup!:FormGroup;
   cargando:boolean = false;
@@ -28,6 +29,12 @@ export default class SignInComponent{
   }
 
   ngOnInit(): void {
+    let nombreusuario = this.servicio.getCookie('user_name')
+    if(nombreusuario){
+      console.log(nombreusuario);
+
+      this.router.navigate(['contratos'])
+    }
     this.formGroup = this.initForm();
   }
 
@@ -54,7 +61,28 @@ export default class SignInComponent{
             nombre: response.user_name,
             correo: response.correo
           })
-          this.router.navigate(['/contratos']);
+          this.servicio.getEmpresa(response.user_id).subscribe({
+            next: (response: ApiResponse) => {
+              if(response.status){
+
+                const valuesArray = Object.values(response.empresa);
+                console.log(valuesArray);
+                console.log(valuesArray[2]);
+                this.servicio.saveUserEmpresa(valuesArray[2])
+                console.log(this.servicio.getCookie('idEmpresa'));
+
+                this.router.navigate(['/contratos']);
+              }
+            },
+            error: (err) => {
+              console.error('Error al realizar la solicitud:', err);
+              this.router.navigate(['/contratos']);
+            },
+            complete: () => {
+              console.info('Solicitud completada.');
+            },
+
+          });
         } else {
           this.mensajeapi = response.message
         }

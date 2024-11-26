@@ -1,19 +1,27 @@
 import { Injectable } from '@angular/core';
-import { sign_in } from '../interfaces';
+import { CrearContrato2, DeleteContra, editarContrato, EditarEmpresa, sign_in } from '../interfaces';
 import { Observable,BehaviorSubject  } from 'rxjs';
 import { HttpClient} from '@angular/common/http';
 import { ApiResponse } from '../interfaces';
 import { sign_up } from '../interfaces';
-import { infoEmpresa,CrearContratista,CrearContrato } from '../interfaces';
+import { infoEmpresa,CrearContratista,CrearContrato,ApiResponse2,RespuestaContratista,subirdocumento } from '../interfaces';
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class ServicioAPIService {
   private apiUrl = 'http://127.0.0.1:5000/';
-  private userSubject = new BehaviorSubject<any>(null);
-  user$ = this.userSubject.asObservable();
+  private arraySource = new BehaviorSubject<any[]>([]);
   constructor(private http: HttpClient) { }
-
+  private triggerFunctionSource = new Subject<void>();
+  triggerFunction$ = this.triggerFunctionSource.asObservable();
+  currentArray = this.arraySource.asObservable();
+  actualizarArray(nuevoArray: any[]) {
+    this.arraySource.next(nuevoArray);
+  }
+  triggerFunction() {
+    this.triggerFunctionSource.next();
+  }
   sign_in(datos: sign_in): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(this.apiUrl + 'api/sign-in', datos);
   }
@@ -59,8 +67,14 @@ export class ServicioAPIService {
   getContratista(id_usuario:any):Observable<ApiResponse>{
     return this.http.get<ApiResponse>(this.apiUrl + '/api/contratistas/listarcontratistas?idEmpresa='+id_usuario);
   }
+  getContratis(id_usuario:any):Observable<RespuestaContratista>{
+    return this.http.get<RespuestaContratista>(this.apiUrl + '/api/contratistas/getcontratista?idContratista='+id_usuario);
+  }
   getEmpresa(id_usuario:any):Observable<ApiResponse>{
     return this.http.get<ApiResponse>(this.apiUrl+'/api/empresa/getempresa?id_usuario='+id_usuario)
+  }
+  getInfoUsuario(id_usuario:any):Observable<ApiResponse>{
+    return this.http.get<ApiResponse>(this.apiUrl+'/api/perfil/getuser?id_user='+id_usuario)
   }
   crearEmpresa(data:infoEmpresa):Observable<ApiResponse>{
     return this.http.post<ApiResponse>(this.apiUrl + '/api/empresa/createempresa', data);
@@ -68,11 +82,29 @@ export class ServicioAPIService {
   crearContratista(data:CrearContratista):Observable<ApiResponse>{
     return this.http.post<ApiResponse>(this.apiUrl + '/api/contratistas/crearcontratistas', data);
   }
-  crearContrato(data:CrearContrato):Observable<ApiResponse>{
+  crearContrato(data:CrearContrato2):Observable<ApiResponse>{
     return this.http.post<ApiResponse>(this.apiUrl + '/api/contratos/crearcontrato', data);
   }
   getContratos(id_usuario:any):Observable<ApiResponse>{
     return this.http.get<ApiResponse>(this.apiUrl+'/api/contratos/listarcontratos?idEmpresa='+id_usuario)
+  }
+  getContrato(id_usuario:any):Observable<ApiResponse2>{
+    return this.http.get<ApiResponse2>(this.apiUrl+'/api/contratos/getcontrato?idContrato='+id_usuario)
+  }
+  editarContrato(data:editarContrato):Observable<ApiResponse>{
+    return this.http.put<ApiResponse>(this.apiUrl + '/api/contratos/editcontrato', data);
+  }
+  subirdocumento(data:subirdocumento):Observable<ApiResponse>{
+    return this.http.post<ApiResponse>(this.apiUrl+ '/api/documentos/creardocumento',data);
+  }
+  deleteContrato(data:DeleteContra):Observable<ApiResponse>{
+    const options = {
+      body: data
+    };
+    return this.http.delete<ApiResponse>(this.apiUrl+ '/api/contratos/deletecontrato',options);
+  }
+  editarEmpresa(data:EditarEmpresa):Observable<ApiResponse>{
+    return this.http.put<ApiResponse>(this.apiUrl + '/api/empresa/editarEmpresa', data);
   }
 }
 

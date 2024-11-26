@@ -157,7 +157,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo contratista</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar3"></button>
       </div>
       <div class="modal-body">
         <p *ngIf="!empresa" class="m-0 text" >Estas a un paso de administrar tus contratos pero primero termina de crear tu perfil de empresa</p>
@@ -197,13 +197,12 @@
   </div>
 </div>
 <!-- Modal  Crear empresa--->
-<div class="modal fade" id="exampleModalToggle3" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalToggleLabel3"
-  aria-hidden="true">
+<div class="modal fade" id="exampleModalToggle3" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalToggleLabel3">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Crear empresa</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar2"></button>
       </div>
       <div class="modal-body">
         <form action="" [formGroup]="formempresa" (ngSubmit)="agregarempresa()">
@@ -238,7 +237,7 @@
             <textarea name="" id="" formControlName="descripcion" name="descripcion" ></textarea>
           </div>
           <div class="d-flex flex-row-reverse">
-            <button type="submit" class="enviar" data-bs-dismiss="offcanvas">Terminar</button>
+            <button type="submit" class="enviar">Terminar</button>
           </div>
         </form>
       </div>
@@ -260,7 +259,7 @@
 </div>
 
 <div class="overlay z-2" *ngIf="cargando || empresacreada"></div>
-<div class="bg-light w-25 position-absolute top-50 start-50 translate-middle p-5 text-center rounded-3 border z-3" *ngIf="cargando">
+<div class="bg-light w-25 position-absolute top-50 start-50 translate-middle p-5 text-center rounded-3 border" style="z-index:9999" *ngIf="cargando">
   <h3>Cargando</h3>
   <div class="spinner-border text-primary" role="status">
     <span class="visually-hidden">Loading...</span>

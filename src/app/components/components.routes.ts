@@ -6,7 +6,7 @@ const navRoutes: unknown = [
     loadComponent: () => import('./vercontratos/vercontratos.component').then(m => m.VercontratosComponent),
   },
   {
-    path: 'vista',
+    path: 'vista/:id_contrato',
     loadComponent: () => import('./vista-contrato/vista-contrato.component').then(m => m.VistaContratoComponent),
   },
   {

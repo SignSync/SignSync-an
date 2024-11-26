@@ -2,44 +2,46 @@
   <div class="bg-light rounded-4 w-75 p-5">
     <div class="text-center">
       <img src="user.png" alt="" class="img-fluid img_perfil rounded-circle">
-      <h4>Mi empresa</h4>
-      <p>Sector <b>Sector</b></p>
-      <p>ubicacion <b>Ubicacion</b></p>
+      <h4>{{datosempresa.nombre}}</h4>
+      <p>Sector <b>{{datosempresa.sector}}</b></p>
     </div>
     <h5 class="border-bottom border-2">Información General</h5>
-    <form action="">
+    <form [formGroup]="formempresa" (ngSubmit)="onSubmit()">
       <div class=" d-flex flex-column">
         <label for="">Nombre de la Empresa:</label>
-        <input type="text" class="input">
+        <input type="text" class="input" [value]="datosempresa.nombre" formControlName="nombre">
       </div>
       <div class=" d-flex flex-column">
         <label for="">Sector:</label>
-        <input type="text" class="input">
-      </div>
-      <div class=" d-flex flex-column">
-        <label for="">Ubicación:</label>
-        <input type="text" class="input">
+        <input type="text" class="input" [value]="datosempresa.sector" formControlName="sector">
       </div>
       <h5 class="border-bottom border-2 mt-3">Datos de Contacto</h5>
       <div class=" d-flex flex-column">
         <label for="">Correo Electrónico:</label>
-        <input type="text" class="input">
+        <input type="text" class="input" [value]="datosempresa.correo" formControlName="correo">
       </div>
       <div class=" d-flex flex-column">
         <label for="">Teléfono:</label>
-        <input type="text" class="input">
+        <input type="text" class="input" [value]="datosempresa.telefono" formControlName="telefono">
       </div>
       <div class=" d-flex flex-column">
         <label for="">Sitio Web:</label>
-        <input type="text" class="input">
+        <input type="text" class="input" [value]="datosempresa.sitio_web" formControlName="sitio_web">
       </div>
       <h5 class="border-bottom border-2 mt-3">Descripción</h5>
       <div class=" d-flex flex-column">
         <label for="">Descripción de la Empresa:</label>
-        <textarea name="" id="" class="textarea"></textarea>
+        <textarea name="" id="" class="textarea" [value]="datosempresa.descripcion" formControlName="descripcion"></textarea>
       </div>
       <button type="submit" class="btn_funcion mt-3">Guardar</button>
     </form>
 
+  </div>
+</div>
+<div class="overlay z-2" *ngIf="cargando"></div>
+<div class="bg-light w-25 position-absolute top-50 start-50 translate-middle p-5 text-center rounded-3 border z-3" *ngIf="cargando">
+  <h3>Cargando</h3>
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
   </div>
 </div>

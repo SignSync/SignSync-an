@@ -1,13 +1,14 @@
-import { Component,InputOptions,OnInit } from '@angular/core';
+import { Component,InputOptions,OnInit,ViewChild  } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { VistaContratoComponent } from "../vista-contrato/vista-contrato.component";
 import { VercontratosComponent } from '../vercontratos/vercontratos.component';
 import { CommonModule } from '@angular/common';
 import { ServicioAPIService } from '../servicio-api.service';
 import { Router } from '@angular/router';
-import { ApiResponse } from '../../interfaces';
+import { ApiResponse, CrearContrato2 } from '../../interfaces';
 import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { infoEmpresa,ApiResponseEmpresa,CrearContratista,Contratista,CrearContrato} from '../../interfaces';
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-navegacion',
   standalone: true,
@@ -16,6 +17,7 @@ import { infoEmpresa,ApiResponseEmpresa,CrearContratista,Contratista,CrearContra
   styleUrl: './navegacion.component.css'
 })
 export default class NavegacionComponent implements OnInit{
+
   formContratista!:FormGroup;
   formcontrato!:FormGroup
   formempresa!:FormGroup
@@ -114,8 +116,8 @@ export default class NavegacionComponent implements OnInit{
           if(response.status){
             this.contratistas = true
             this.contratislista = response.contratistas;
-            console.log(this.contratislista);
-
+            //console.log(this.contratislista);
+            this.servicio.actualizarArray(this.contratislista)
           }
         },
         error: (err) => {
@@ -150,8 +152,10 @@ export default class NavegacionComponent implements OnInit{
           this.cargando = false
           this.empresacreada = true
         }
-        const boton = document.getElementById('cerrar') as HTMLButtonElement;
+        const boton = document.getElementById('cerrar2') as HTMLButtonElement;
         if (boton) {
+          console.log('click');
+
           boton.click(); // Simula el clic
         } else {
           console.error('No se encontró el botón con el ID "cerrar".');
@@ -169,9 +173,10 @@ export default class NavegacionComponent implements OnInit{
     });
   }
   agregarcontratista(){
+    this.cargando = true
     const {nombre,edad,ocupacion,domicilio,telefono} = this.formContratista.value
     let data:CrearContratista = {
-      idEmpresa: this.id_empresa,
+      id_empresa: Number(this.id_empresa),
       nombre:nombre,
       edad:edad,
       ocupacion:ocupacion,
@@ -187,7 +192,7 @@ export default class NavegacionComponent implements OnInit{
         console.log('Estado:', response.status);
         if (response.status) {
           console.log('Exito pa');
-          const boton = document.getElementById('cerrar') as HTMLButtonElement;
+          const boton = document.getElementById('cerrar3') as HTMLButtonElement;
           if (boton) {
             boton.click(); // Simula el clic
           } else {
@@ -195,19 +200,29 @@ export default class NavegacionComponent implements OnInit{
           }
           this.formContratista.reset();
           this.obtenerContratista();
+          this.cargando = false
+          Swal.fire({
+            title: 'Contratista Creado',
+            text: 'Contratista Generado con exito',
+            icon: 'success',
+            confirmButtonText:'Continuar'
+          })
         }
       },
       error: (err) => {
         console.error('Error al realizar la solicitud:', err);
+        this.cargando = false
       },
       complete: () => {
         console.info('Solicitud completada.');
+        this.cargando = false
       },
 
     });
 
   }
   agregarcontrato() {
+    this.cargando = true
     const { nombre, tipo, color, lugar, fecha_inicio, fecha_entrega, id_contratista } = this.formcontrato.value;
     const formatearFecha = (fecha: string): string => {
       const date = new Date(fecha);
@@ -218,7 +233,7 @@ export default class NavegacionComponent implements OnInit{
     console.log('Datos del formulario:', this.formcontrato.value);
     console.log('Fecha inicio formateada:', fechaInicioFormateada);
     console.log('Fecha entrega formateada:', fechaEntregaFormateada);
-    const data: CrearContrato = {
+    const data: CrearContrato2 = {
       idEmpresa: this.id_empresa,
       idContratista: id_contratista,
       nombre: nombre,
@@ -228,13 +243,16 @@ export default class NavegacionComponent implements OnInit{
       fecha_entrega: fechaEntregaFormateada,
       color: color
     };
+    console.log(data);
 
     this.servicio.crearContrato(data).subscribe({
+
       next: (response: ApiResponse) => {
         console.log(response);
         console.log('Mensaje:', response.message);
         console.log('Estado:', response.status);
         if (response.status) {
+          this.cargando = false
           console.log('Éxito al crear contrato');
           const boton = document.getElementById('cerrar') as HTMLButtonElement;
           if (boton) {
@@ -243,18 +261,33 @@ export default class NavegacionComponent implements OnInit{
             console.error('No se encontró el botón con el ID "cerrar".');
           }
           this.formcontrato.reset();
-          this.empresacreada = true;
+          Swal.fire({
+            title: 'Contrato Creado',
+            text: 'Contrato generado con exito',
+            icon: 'success',
+            confirmButtonText:'Continuar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload()
+            }
+          });
         }
       },
       error: (err) => {
         console.error('Error al realizar la solicitud:', err);
+        this.cargando = false
       },
       complete: () => {
         console.info('Solicitud completada.');
+       this.cargando = false
       },
     });
   }
   terminar(){
     this.empresacreada = false;
+    window.location.reload()
+  }
+  triggerOtherComponentFunction() {
+    this.servicio.triggerFunction();
   }
 }

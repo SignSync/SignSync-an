@@ -9,10 +9,16 @@ export interface ApiResponse {
   correo?:string;
   user_name?:string;
   id_new_empresa?:number
-  empresa?:ApiResponseEmpresa[]
+  empresa:ApiResponseEmpresa[]
   contratistas?:Contratista[]
   id_nuevo_contrato?:number
   contratos?:ContratoApi
+  usuario:EditarUsuario
+}
+export interface ApiResponse2{
+  contratos: Contrato[];
+  status: boolean;
+  message?:string
 }
 export interface ContratoApi {
   contratoData: {
@@ -25,7 +31,7 @@ export interface ContratoApi {
     nombre: string;
     tipo: string; // Ejemplo: "Servicios"
   };
-  contratoInicio: boolean;
+  contrato_inicio: boolean;
   diasRestantes: number;
 }
 
@@ -50,8 +56,22 @@ export interface dashboardResponse {
   status: boolean;
   context:any;
 }
+export interface Contrato {
+  contrato_data: {
+    color: string;
+    fecha_entrega: string;
+    fecha_inicio: string;
+    idContrato: number;
+    id_empresa: number;
+    lugar: string;
+    nombre: string;
+    tipo: string;
+  };
+  contrato_inicio: boolean;
+  dias_restantes: number;
+}
 export interface CrearContratista{
-  idEmpresa:number;
+  id_empresa:number;
   nombre:string;
   edad:number;
   ocupacion:string;
@@ -65,7 +85,7 @@ export interface Contratista {
   id_empresa: number;
   nombre: string;
   ocupacion: string;
-  telefono: number;
+  telefono: string;
 }
 export interface infoEmpresa{
   id_usuario:number
@@ -77,6 +97,16 @@ export interface infoEmpresa{
   descripcion:string;
 }
 export interface CrearContrato {
+  id_empresa: number;
+  idContratista: number;
+  nombre: string;
+  tipo: string;
+  lugar: string;
+  fecha_inicio: string;
+  fecha_entrega: string;
+  color: string;
+}
+export interface CrearContrato2 {
   idEmpresa: number;
   idContratista: number;
   nombre: string;
@@ -86,4 +116,42 @@ export interface CrearContrato {
   fecha_entrega: string;
   color: string;
 }
-
+export interface editarContrato {
+  id_contrato: number;
+  idContratista: number;
+  nombre: string;
+  tipo: string;
+  lugar: string;
+  fecha_inicio: string;
+  fecha_entrega: string;
+  color: string;
+}
+export interface RespuestaContratista {
+  contratista: Contratista;
+  status: boolean;
+}
+export interface subirdocumento{
+  id_contrato:number
+  nombre:string
+  url:string
+}
+export interface DeleteContra{
+  idContrato:string
+}
+export interface EditarEmpresa{
+  correo:string
+  descripcion:string
+  id_usuario:string|any
+  nombre:string
+  sector:string
+  sitio_web:string
+  telefono:string
+}
+export interface EditarUsuario{
+  correo:string
+  created_date:string
+  fecha_nacimiento:string|any
+  id_user:number
+  sexo:string|any
+  usuario:string
+}
