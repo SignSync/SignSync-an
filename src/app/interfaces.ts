@@ -155,3 +155,9 @@ export interface EditarUsuario{
   sexo:string|any
   usuario:string
 }
+export interface EditarUsuarioApi{
+  idUsuario:number
+  usuario:string
+  sexo:string
+  fecha_nacimiento:string
+}

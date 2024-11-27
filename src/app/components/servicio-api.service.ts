@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CrearContrato2, DeleteContra, editarContrato, EditarEmpresa, sign_in } from '../interfaces';
+import { CrearContrato2, DeleteContra, editarContrato, EditarEmpresa, EditarUsuarioApi, sign_in } from '../interfaces';
 import { Observable,BehaviorSubject  } from 'rxjs';
 import { HttpClient} from '@angular/common/http';
 import { ApiResponse } from '../interfaces';
@@ -105,6 +105,9 @@ export class ServicioAPIService {
   }
   editarEmpresa(data:EditarEmpresa):Observable<ApiResponse>{
     return this.http.put<ApiResponse>(this.apiUrl + '/api/empresa/editarEmpresa', data);
+  }
+  editarUsuario(data:EditarUsuarioApi):Observable<ApiResponse>{
+    return this.http.put<ApiResponse>(this.apiUrl + '/api/perfil/editar', data);
   }
 }
 
