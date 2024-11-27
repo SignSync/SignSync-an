@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule,Location  } from '@angular/common';
 import { ServicioAPIService } from '../servicio-api.service';
-import { ApiResponse2,Contratista,editarContrato,RespuestaContratista,CrearContrato, ApiResponse, DeleteContra } from '../../interfaces';
+import { ApiResponse2,Contratista,editarContrato,RespuestaContratista,CrearContrato, ApiResponse, DeleteContra, CrearPaquete, ApiResponsePaquete, Paquete, eliminarPaquete } from '../../interfaces';
 import { Router } from '@angular/router';
 import { formatDate  } from '@angular/common';
 import Swal from 'sweetalert2';
@@ -22,6 +22,8 @@ export class VistaContratoComponent implements OnInit{
   dataSource:any;
   arrayRecibido: any[] = [];
   cargando:boolean = false
+  paquetes:Paquete|any
+  total:number = 0
   infodocumento:editarContrato = {
     id_contrato: 0,
     nombre: '',
@@ -52,9 +54,11 @@ export class VistaContratoComponent implements OnInit{
         //console.log('Estado:', response.status);
         //console.log("Info de contrato", response.contratos);
         if (response.status) {
+          this.obtenerpaquetes(this.idcontrato[1])
           this.dataSource = response.contratos
           console.log(this.dataSource);
           this.agregarinformacion()
+
         }
       },
       error: (err) => {
@@ -95,6 +99,30 @@ export class VistaContratoComponent implements OnInit{
   initFormdocumento():FormGroup{
     return this.fb.group({
       nombre: ['']
+    })
+  }
+  obtenerpaquetes(id_contrato:any){
+    this.cargando = true
+    this.servicio.getPaquetes(id_contrato).subscribe({
+      next: (response: ApiResponsePaquete) => {
+        //console.log('Estado:', response.status);
+        //console.log("Info de contrato", response.contratos);
+        if (response.status) {
+          console.log(response);
+          this.paquetes = response.paquetes
+          this.cargando = false
+          this.paquetes.forEach((element:Paquete) => {
+            this.total += element.costo
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Error al realizar la solicitud:', err);
+        this.cargando = false
+      },
+      complete: () => {
+        console.info('Solicitud completada.');
+      }
     })
   }
   agregarinformacion() {
@@ -208,18 +236,52 @@ export class VistaContratoComponent implements OnInit{
       const formData = new FormData();
       formData.append('nombre', nombre);
       formData.append('documento', documento);
-
-      // Simulación de envío al servidor
-      /*
-      this.http.post('URL_DEL_SERVIDOR', formData).subscribe((response) => {
-        console.log('Archivo enviado:', response);
-      });
-      */
     } else {
       console.error('No se seleccionó ningún archivo');
     }
   }
   agregarpaquete(){
+    this.cargando = true
+    const boton = document.getElementById('close') as HTMLButtonElement;
+    if (boton) {
+      console.log('click');
+      boton.click(); // Simula el clic
+    } else {
+      console.error('No se encontró el botón con el ID "cerrar".');
+    }
+    const {nombre,costo} = this.formpaquete.value
+    console.log(this.formpaquete.value);
+    let data:CrearPaquete= {
+      idContrato:this.idcontrato[1],
+      nombre:nombre,
+      costo:costo
+    }
+    this.servicio.crearpaquete(data).subscribe({
+      next: (response: ApiResponse) => {
+        console.log(response);
+        this.cargando = false
+        this.formpaquete.reset();
+        console.log(response.status);
+        if(response.status){
+
+          Swal.fire({
+            title: 'Paquete Agregado',
+            text: 'Paquete Agregado con exito con exito',
+            icon: 'success',
+            confirmButtonText:'Continuar'
+          })
+          this.obtenerpaquetes(this.idcontrato[1])
+        }
+
+      },
+      error: (err) => {
+        console.error('Error al realizar la solicitud:', err);
+      },
+      complete: () => {
+        this.cargando = false
+        console.info('Solicitud completada.');
+      },
+    })
 
   }
   eliminar(){
@@ -271,4 +333,55 @@ export class VistaContratoComponent implements OnInit{
       }
     });
   }
+  elimnarpaquete(idPaquete:any){
+    this.cargando = true
+    console.log('Eliminar contrato:', this.idcontrato[1]);
+    let data:eliminarPaquete = {
+      idPaquete:idPaquete
+    }
+    Swal.fire({
+      title: "Seguro que quieres eliminar el paquete?",
+      text: "Esta acción es irreversible!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: "Si, eliminar paquete!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.servicio.deletepaquete(data).subscribe({
+          next: (response: ApiResponse) => {
+            console.log(response);
+            if(response.status){
+              this.cargando = false
+              Swal.fire({
+                title: "Paquete eliminado!",
+                text: "Paquete eliminado con exito.",
+                icon: "success",
+                confirmButtonText: "Continuar"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.obtenerpaquetes(this.idcontrato[1])
+                  this.total = 0
+                }
+              });
+            }
+          },
+          error: (err) => {
+            console.error('Error al realizar la solicitud:', err);
+            this.cargando = false
+          },
+          complete: () => {
+            this.cargando = false
+            console.info('Solicitud completada.');
+            this.cargando = false
+          },
+        })
+      }else if (result.isDismissed) {
+        this.cargando = false
+      }
+    });
+  }
+
 }

@@ -99,11 +99,11 @@ export default class MiperfilComponent implements OnInit {
     this.correo = datos.correo;
     this.formEditar.get('nombre')?.setValue(datos.usuario);
     this.nombre_usuario = datos.usuario
-  
+
     if (datos.sexo != null) {
       this.formEditar.get('genero')?.setValue(datos.sexo);
     }
-  
+
     if (datos.fecha_nacimiento) {
       let fecha = new Date(datos.fecha_nacimiento);
       let dia = fecha.getDate();
@@ -115,7 +115,7 @@ export default class MiperfilComponent implements OnInit {
       this.formEditar.get('anio')?.setValue(anio);
     }
   }
-  
+
   onSubmit() {
     this.cargando = true
     console.log(this.formEditar.value);
@@ -133,6 +133,7 @@ export default class MiperfilComponent implements OnInit {
         this.cargando = false;
         if (response.status) {
           this.nombre_usuario = nombre
+          this.servicio.saveUserDataEdit(nombre)
           Swal.fire({
             title: 'Datos de usuario actualizados',
             text: 'Informacion actualizada con exito',
@@ -140,7 +141,7 @@ export default class MiperfilComponent implements OnInit {
             confirmButtonText:'Continuar'
           }).then((result) => {
             if (result.isConfirmed) {
-              
+              window.location.reload()
             }
           });
         }

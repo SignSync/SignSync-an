@@ -96,43 +96,24 @@
           <h3 class="mx-2">Paquetes</h3>
           <h3><i class="mx-2 bi bi-plus-square-dotted" type="button" data-bs-toggle="modal" data-bs-target="#nuevoservicio"></i></h3>
         </div>
-        <h5 class="">Paquete 01</h5>
-        <div class="rounded-3 bg_secundario2 mb-2 p-2">
-          <p class="ms-2">Servicio 01 </p>
-        </div>
-        <div class="rounded-3 bg_secundario2 mb-2 p-2">
-          <p class="ms-2">Servicio 02 </p>
-        </div>
-        <h5 class="">Paquete 02</h5>
-        <div class="rounded-3 bg_secundario2 mb-2 p-2">
-          <p class="ms-2">Servicio 01 </p>
-        </div>
-        <div class="rounded-3 bg_secundario2 mb-2 p-2">
-          <p class="ms-2">Servicio 02 </p>
-        </div>
-        <div class="rounded-3 bg_secundario2 mb-2 p-2">
-          <p class="ms-2">Servicio 03 </p>
+        <div *ngFor="let paquete of paquetes">
+          <div class="d-flex justify-content-between px-2"><h4>{{paquete.nombre}} </h4><i class="bi bi-x-circle-fill fs-5" (click)="elimnarpaquete(paquete.idPaquete)"></i></div>
+          <div class="rounded-3 bg_secundario2 mb-2 p-2">
+            <p class="ms-2">Costo: {{paquete.costo}} </p>
+          </div>
         </div>
       </div>
     </div>
     <div class="col-md-4 mt-md-0 mt-2">
       <div class="bg-secundario p-3 rounded-4">
         <h3 class="">Cuentas</h3>
-        <div class="row precios ps-3">
-          <p class="col-6">Servicio</p>
-          <p class="col-6">$ <b>12,800.00</b></p>
+        <div class="row precios ps-3" *ngFor="let paquete of paquetes">
+          <p class="col-6">{{paquete.nombre}}</p>
+          <p class="col-6">$ <b>{{paquete.costo}}</b></p>
         </div>
-        <div class="row precios ps-3">
-          <p class="col-6">Servicio</p>
-          <p class="col-6">$ <b>12,800.00</b></p>
-        </div>
-        <div class="row precios ps-3">
-          <p class="col-6">Servicio</p>
-          <p class="col-6">$ <b>12,800.00</b></p>
-        </div>
-        <div class="row precios mt-4 ps-3">
+        <div class="row precios mt-4 ps-3"*ngIf="total != 0">
           <p class="col-6"></p>
-          <p class="col-6">$ <b>12,800.00</b></p>
+          <p class="col-6">$ <b>{{total}}</b></p>
         </div>
       </div>
     </div>
@@ -178,7 +159,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo paquete</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="formpaquete" (ngSubmit)="agregarpaquete()">

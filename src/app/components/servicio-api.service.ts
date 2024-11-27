@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CrearContrato2, DeleteContra, editarContrato, EditarEmpresa, EditarUsuarioApi, sign_in } from '../interfaces';
+import { ApiResponsePaquete, CrearContrato2, CrearPaquete, DeleteContra, editarContrato, EditarEmpresa, EditarUsuarioApi, eliminarPaquete, sign_in } from '../interfaces';
 import { Observable,BehaviorSubject  } from 'rxjs';
 import { HttpClient} from '@angular/common/http';
 import { ApiResponse } from '../interfaces';
@@ -24,6 +24,9 @@ export class ServicioAPIService {
   }
   sign_in(datos: sign_in): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(this.apiUrl + 'api/sign-in', datos);
+  }
+  saveUserDataEdit(nombre:any):void{
+    this.setCookie('user_name',nombre,7)
   }
   saveUserData(userData: any): void {
     this.setCookie('user_id', userData.id, 7);
@@ -91,6 +94,9 @@ export class ServicioAPIService {
   getContrato(id_usuario:any):Observable<ApiResponse2>{
     return this.http.get<ApiResponse2>(this.apiUrl+'/api/contratos/getcontrato?idContrato='+id_usuario)
   }
+  getPaquetes(idContrato:any):Observable<ApiResponsePaquete>{
+    return this.http.get<ApiResponsePaquete>(this.apiUrl+'/api/paquetes/paquetescontrato?idContrato='+idContrato)
+  }
   editarContrato(data:editarContrato):Observable<ApiResponse>{
     return this.http.put<ApiResponse>(this.apiUrl + '/api/contratos/editcontrato', data);
   }
@@ -103,12 +109,22 @@ export class ServicioAPIService {
     };
     return this.http.delete<ApiResponse>(this.apiUrl+ '/api/contratos/deletecontrato',options);
   }
+  deletepaquete(data:eliminarPaquete):Observable<ApiResponse>{
+    const options = {
+      body: data
+    };
+    return this.http.delete<ApiResponse>(this.apiUrl+ '/api/paquetes/paquete',options);
+  }
   editarEmpresa(data:EditarEmpresa):Observable<ApiResponse>{
     return this.http.put<ApiResponse>(this.apiUrl + '/api/empresa/editarEmpresa', data);
   }
   editarUsuario(data:EditarUsuarioApi):Observable<ApiResponse>{
     return this.http.put<ApiResponse>(this.apiUrl + '/api/perfil/editar', data);
   }
+  crearpaquete(data:CrearPaquete):Observable<ApiResponse>{
+    return this.http.post<ApiResponse>(this.apiUrl + '/api/paquetes/paquete', data);
+  }
+
 }
 
 

@@ -25,6 +25,11 @@ const navRoutes: unknown = [
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.routes')
   },
+  {
+    path: 'contratistas',
+    loadComponent: () => import('./contratistas/contratistas.component')
+  },
+
 ];
 
 // Fuerza la conversión a Routes

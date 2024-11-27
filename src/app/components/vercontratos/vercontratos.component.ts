@@ -26,6 +26,7 @@ interface Contrato {
 })
 export class VercontratosComponent implements OnInit{
   constructor(private fb:FormBuilder, public servicio:ServicioAPIService, private router:Router){}
+  fechaActual: string|any;
   formGroup!:FormGroup
   id_empresa:number | any
   idUsuario:number = 2;
@@ -36,15 +37,24 @@ export class VercontratosComponent implements OnInit{
   contratosInactivos:number = 0
   cargando = false
   ngOnInit(): void {
+    this.fechaActual = this.getFormattedDate();
     this.id_empresa = this.servicio.getCookie('idEmpresa')
     this.obtenerContratos();
     this.servicio.triggerFunction$.subscribe(() => {
       this.obtenerContratos();
     });
   }
-  actualizat(){
-    console.log('ya queda ');
+  getFormattedDate(): string {
+    const fecha = new Date();
+    const opciones: Intl.DateTimeFormatOptions = { month: 'short', day: '2-digit' };
+    const fechaFormateada = fecha.toLocaleDateString('es-ES', opciones);
 
+    // Formato: "27 nov." -> Capitalizar el mes y eliminar el punto
+    return fechaFormateada
+      .replace('.', '') // Eliminar el punto que algunos idiomas incluyen
+      .split(' ') // Separar día y mes
+      .map((parte, index) => (index === 1 ? parte.charAt(0).toUpperCase() + parte.slice(1) : parte)) // Capitalizar mes
+      .join(' '); // Volver a unir
   }
   obtenerContratos() {
     this.cargando = true

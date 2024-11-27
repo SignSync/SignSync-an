@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AppComponent } from './app.component';
+import NotFoundComponent from './not-found/not-found.component';
 import NavegacionComponent from './components/navegacion/navegacion.component';
 export const routes: Routes = [
   {
@@ -15,6 +16,10 @@ export const routes: Routes = [
   {
     path:'*',
     redirectTo: ''
+  },
+  {
+    path:'**',
+    component: NotFoundComponent
   }
 
 ];

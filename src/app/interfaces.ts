@@ -161,3 +161,23 @@ export interface EditarUsuarioApi{
   sexo:string
   fecha_nacimiento:string
 }
+export interface CrearPaquete{
+  idContrato:string
+  costo:number
+  nombre:string
+}
+
+export interface Paquete {
+  costo: number;
+  idContrato: number;
+  idPaquete: number;
+  nombre: string;
+}
+
+export interface ApiResponsePaquete {
+  paquetes: Paquete[];
+  status: boolean;
+}
+export interface eliminarPaquete {
+  idPaquete:number
+}
