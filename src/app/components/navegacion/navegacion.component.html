@@ -46,7 +46,7 @@
       <a href="/calendario"><i class="bi bi-calendar-check"></i></a>
     </div>
     <div class="menu-item mx-1">
-      <a href="/miperfil"><i class="bi bi-people-fill"></i></a>
+      <a href="/contratistas"><i class="bi bi-people-fill"></i></a>
     </div>
     <div class="menu-item mx-1">
       <a href="/miempresa"><i class="bi bi-building-fill"></i></a>
@@ -258,7 +258,27 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-    ...
+    <div class="p-3 border border-danger bg-danger-subtle">
+      <h5>Los proximos contratos a vencer son:</h5>
+      <div *ngFor="let contratosP of contratosProximos" class="p-2 border border-danger-subtle my-2 border-opacity-75 rounded-2">
+        <h5><a href="vista/:{{contratosP.contrato_data.idContrato}}" class="text-decoration-underline text-dark">{{contratosP.contrato_data.nombre}}</a></h5>
+        <p class="fw-light m-0">Fecha de entrega: {{contratosP.contrato_data.fecha_entrega}}</p>
+      </div>
+    </div>
+    <div class="p-3 border border-warning bg-warning-subtle mt-2">
+      <h5>Los proximos contratos a vencer son:</h5>
+      <div *ngFor="let contratosC of contratosCercanos" class="p-2 border border-warning-subtle my-2 border-opacity-75 rounded-2">
+        <h5><a href="vista/:{{contratosC.contrato_data.idContrato}}" class="text-decoration-underline text-dark">{{contratosC.contrato_data.nombre}}</a></h5>
+        <p class="fw-light m-0">Fecha de entrega: {{contratosC.contrato_data.fecha_entrega}}</p>
+      </div>
+    </div>
+    <div class="p-3 border border-success bg-success-subtle mt-2">
+      <h5>Los proximos contratos cercanos son:</h5>
+      <div *ngFor="let contratosT of contratosConTiempo" class="p-2 border border-success-subtle my-2 border-opacity-75 rounded-2">
+        <h5><a href="vista/:{{contratosT.contrato_data.idContrato}}" class="text-decoration-underline text-dark">{{contratosT.contrato_data.nombre}}</a></h5>
+        <p class="fw-light m-0">Fecha de entrega: {{contratosT.contrato_data.fecha_entrega}}</p>
+      </div>
+    </div>
   </div>
 </div>
 

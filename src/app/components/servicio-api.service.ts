@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiResponsePaquete, CrearContrato2, CrearPaquete, DeleteContra, editarContrato, EditarEmpresa, EditarUsuarioApi, eliminarPaquete, sign_in } from '../interfaces';
+import { ApiResponsePaquete, CrearContrato2, CrearPaquete, DeleteContra, editarcontratista, editarContrato, EditarEmpresa, EditarUsuarioApi, eliminarContratista, eliminarPaquete, sign_in } from '../interfaces';
 import { Observable,BehaviorSubject  } from 'rxjs';
 import { HttpClient} from '@angular/common/http';
 import { ApiResponse } from '../interfaces';
@@ -115,11 +115,20 @@ export class ServicioAPIService {
     };
     return this.http.delete<ApiResponse>(this.apiUrl+ '/api/paquetes/paquete',options);
   }
+  deleteContratista(data:eliminarContratista):Observable<ApiResponse>{
+    const options = {
+      body: data
+    };
+    return this.http.delete<ApiResponse>(this.apiUrl+ '/api/contratistas/eliminarcontratista',options);
+  }
   editarEmpresa(data:EditarEmpresa):Observable<ApiResponse>{
     return this.http.put<ApiResponse>(this.apiUrl + '/api/empresa/editarEmpresa', data);
   }
   editarUsuario(data:EditarUsuarioApi):Observable<ApiResponse>{
     return this.http.put<ApiResponse>(this.apiUrl + '/api/perfil/editar', data);
+  }
+  editarContratista(data:editarcontratista):Observable<ApiResponse>{
+    return this.http.put<ApiResponse>(this.apiUrl + 'api/contratistas/editarcontratistas', data);
   }
   crearpaquete(data:CrearPaquete):Observable<ApiResponse>{
     return this.http.post<ApiResponse>(this.apiUrl + '/api/paquetes/paquete', data);

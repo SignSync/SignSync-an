@@ -2,3 +2,70 @@
   box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 25PX;
 }
+.btn_action{
+  height: 50px;
+  width: 50px;
+  color: white;
+  border-radius: 50px;
+}
+.eliminar{
+  background-color: red;
+  border: 1px solid red;
+  transition: all ease-in 70ms;
+}
+.eliminar:hover{
+  background-color: rgb(223, 0, 0);
+  border: 1px solid rgb(223, 0, 0);
+}
+.editar{
+  background-color: #F7C06F;
+  border: 1px solid #F7C06F
+}
+.editar:hover{
+  background-color: #F39C12;
+  border: 1px solid #F39C12
+}
+.formulario-group{
+  display: flex;
+  flex-direction: column;
+}
+.formulario-group input{
+  height: 40px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 12px;
+}
+.formulario-group select{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px;
+}
+.formulario-group textarea{
+  min-height: 80px;
+  max-height: 120px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 12px;
+}
+.enviar{
+  background-color: #7a97ff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.agregar{
+  color: #7a97ff;
+  cursor: pointer;
+}
+table{
+  cursor: default;
+}
+.agregar:hover{
+  color: #5a7cf7;
+}

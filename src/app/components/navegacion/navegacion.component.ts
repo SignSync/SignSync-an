@@ -5,7 +5,7 @@ import { VercontratosComponent } from '../vercontratos/vercontratos.component';
 import { CommonModule } from '@angular/common';
 import { ServicioAPIService } from '../servicio-api.service';
 import { Router } from '@angular/router';
-import { ApiResponse, CrearContrato2 } from '../../interfaces';
+import { ApiResponse, ContratoApi, ContratoApi2, CrearContrato2 } from '../../interfaces';
 import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { infoEmpresa,ApiResponseEmpresa,CrearContratista,Contratista,CrearContrato} from '../../interfaces';
 import Swal from 'sweetalert2'
@@ -30,6 +30,10 @@ export default class NavegacionComponent implements OnInit{
   empresacreada: boolean = false
   empresainfo:ApiResponseEmpresa|any
   contratislista:Contratista |any
+  contratos:ContratoApi|any
+  contratosProximos:ContratoApi |any
+  contratosCercanos:ContratoApi |any
+  contratosConTiempo:ContratoApi |any
   constructor(private fb:FormBuilder,public servicio:ServicioAPIService,private router: Router){}
   ngOnInit(): void {
     this.formContratista = this.initFormContratis();
@@ -47,6 +51,7 @@ export default class NavegacionComponent implements OnInit{
       this.id = id_usuario
       this.obtenerContratista()
       this.obtenerEmpresa(id_usuario)
+      this.obtenerContratos()
     }else{
       this.router.navigate(['/sign-in']);
     }
@@ -290,4 +295,51 @@ export default class NavegacionComponent implements OnInit{
   triggerOtherComponentFunction() {
     this.servicio.triggerFunction();
   }
+  obtenerContratos(){
+    this.cargando = true
+    let id_usuario = this.servicio.getCookie('user_id')
+    this.servicio.getContratos(this.id_empresa).subscribe({
+      next: (response: ApiResponse) => {
+        this.cargando = false
+        this.contratos = response.contratos;
+        console.log(response.contratos);
+        this.clasificarContratos(this.contratos)
+        this.contratos.forEach((element:ContratoApi) => {
+
+        });
+      },
+      error: (err) => {
+        console.error('Error al realizar la solicitud:', err);
+        this.cargando = false
+      },
+      complete: () => {
+        console.info('Solicitud completada.');
+        this.cargando = false
+      }
+    })
+  }
+  clasificarContratos(contratos: ContratoApi2[]) {
+
+    console.log('Info recibida',contratos);
+
+    this.contratosProximos = [];
+    this.contratosCercanos = [];
+    this.contratosConTiempo = [];
+
+    contratos.forEach((contrato: ContratoApi2) => {
+      console.log(contrato.dias_restantes);
+        if (contrato.dias_restantes < 2) {
+            this.contratosProximos.push(contrato);
+        } else if (contrato.dias_restantes >= 2 && contrato.dias_restantes <= 7) {
+            this.contratosCercanos.push(contrato);
+        } else {
+            this.contratosConTiempo.push(contrato);
+        }
+    });
+
+    console.log("Contratos próximos a vencer:", this.contratosProximos);
+    console.log("Contratos que faltan una semana o menos:", this.contratosCercanos);
+    console.log("Contratos con más tiempo disponible:", this.contratosConTiempo);
+}
+
 }

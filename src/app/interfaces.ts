@@ -34,6 +34,20 @@ export interface ContratoApi {
   contrato_inicio: boolean;
   diasRestantes: number;
 }
+export interface ContratoApi2 {
+  contratoData: {
+    color: string; // Ejemplo: "#FFD3E2"
+    fechaEntrega: string; // Formato ISO: "YYYY-MM-DD"
+    fechaInicio: string; // Formato ISO: "YYYY-MM-DD"
+    idContrato: number;
+    idEmpresa: number;
+    lugar: string;
+    nombre: string;
+    tipo: string; // Ejemplo: "Servicios"
+  };
+  contrato_inicio: boolean;
+  dias_restantes: number;
+}
 
 export interface ApiResponseEmpresa{
   correo:string
@@ -180,4 +194,15 @@ export interface ApiResponsePaquete {
 }
 export interface eliminarPaquete {
   idPaquete:number
+}
+export interface editarcontratista{
+  idContratista:number
+  nombre:string
+  edad:number
+  ocupacion:string
+  telefono:string
+  domicilio:string
+}
+export interface eliminarContratista{
+  idContratista:number
 }
