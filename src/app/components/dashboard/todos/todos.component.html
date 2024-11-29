@@ -1,0 +1,76 @@
+<div class="container-fluid mb-5">
+  <div class="row">
+    <div class="col-md-2 bg-white rounded-3 sidebar shadow-sm p-4">
+      <h5 class="text-center fw-bold mb-4">Gráficos</h5>
+      <ul class="list-unstyled">
+        <li class="mb-3">
+          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-chart-bar"></i> Todos
+          </button>
+        </li>
+        <li class="mb-3">
+          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-tachometer-alt"></i> Viabilidad
+          </button>
+        </li>
+        <li class="mb-3">
+          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-dollar-sign"></i> Rentabilidad
+          </button>
+        </li>
+        <li class="mb-3">
+          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-dollar-sign"></i> Aceptabilidad
+          </button>
+        </li>
+        <li class="mb-3">
+          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-dollar-sign"></i> Funcionalidad
+          </button>
+        </li>
+        <li class="mb-3">
+          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-dollar-sign"></i> Sastifacción
+          </button>
+        </li>
+        <li class="mb-3">
+          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-dollar-sign"></i> Crecimiento y seguridad
+          </button>
+        </li>
+        <li class="mb-3">
+          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-dollar-sign"></i> Base de datos
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-10">
+      <h2 class="text-center fw-bold py-4">Análisis</h2>
+      <!-- Carrusel -->
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div *ngFor="let grafica of graficas; let isFirst = first" [class.active]="isFirst" class="carousel-item">
+            <div class="card mx-auto shadow-sm" style="max-width: 80%;">
+              <div class="card-body">
+                <h5 class="card-title text-center">{{ grafica.titulo }}</h5>
+                <h6 class="card-title text-center">{{ grafica.preguntas[0][2]}}</h6>
+                <img [src]="getURL_img(grafica.preguntas[0][1])" alt="Gráfico" class="d-block w-100">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Botones de navegación -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

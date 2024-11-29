@@ -1,0 +1,134 @@
+/* Para pantallas pequeñas como teléfonos móviles */
+@media (max-width: 850px) {
+  .container_login{
+    width: 90% !important;
+    padding: 50px 30px !important;
+  }
+}
+
+/* Para pantallas más pequeñas como móviles en vertical */
+@media (max-width: 480px) {
+  .my-element {
+    font-size: 12px;
+    padding: 5px;
+  }
+}
+
+.background{
+  background: rgb(189,206,242);
+  background: linear-gradient(180deg, rgba(189,206,242,1) 0%, rgba(255,255,255,1) 100%);
+
+}
+
+.container_background{
+  width: 95%;
+  max-width: 1280px;
+  max-height: 800px;
+  margin: auto;
+  padding: 20px;
+  background: linear-gradient(200deg, rgba(189,206,242,1) 0%, rgba(255,255,255,1) 100%);
+  border-radius: 30px;
+
+}
+
+.container_login{
+  width: 35%;
+  border-radius: 30px;
+  max-width: 1280px;
+  max-height: 800px;
+  margin: 35px auto;
+  padding: 50px 60px;
+  background-color: #D7E3FC;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.btn-login {
+  background-color: #7a97ff;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-login:hover {
+  background-color: #5f81fc;
+}
+
+.forgot-password {
+  display: block;
+  margin-top: 10px;
+  color: #666;
+  text-decoration: none;
+  font-size: 14px;
+  text-align: right;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.social-login {
+  margin-top: 20px;
+}
+
+.social-login p {
+  margin: 0 0 10px;
+  font-size: 12px;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-social {
+  width: 75px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  padding: 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-social:hover {
+  background-color: #e0e0e0;
+}
+
+.register-link {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.register-link a {
+  color: #7a97ff;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}

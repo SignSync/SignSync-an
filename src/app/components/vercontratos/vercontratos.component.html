@@ -1,0 +1,61 @@
+<section class="bg-white p-4 rounded-4 principal">
+  <div class="row row-cols-2 justify-content-between">
+    <h1 class="col text-start fw-bolder">Contratos</h1>
+    <h1 class="col text-end">{{fechaActual}}</h1>
+    <div class="col row">
+      <i type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="col-1 bi bi-plus-circle-fill"
+        style="font-size: 35px;"></i>
+      <div class="col-10 row">
+        <div class="col-auto">
+          <h5 class="fw-bolder">{{contratosActivos}}</h5>
+          <p class="fw-light">Contratos iniciados</p>
+        </div>
+        <div class="col-auto">
+          <h5 class="fw-bolder">{{contratosInactivos}}</h5>
+          <p class="fw-light">Contratos sin iniciar</p>
+        </div>
+        <div class="col-auto">
+          <h5 class="fw-bolder">{{cantidadContrato}}</h5>
+          <p class="fw-light">Total de Proyectos</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row ps-3 justify-content-center">
+    <div class="cards rounded-4 bgcontrato p-3 me-2 mt-2" *ngFor="let contrato of contratos" [ngStyle]="{'background-color': contrato.contrato_data.color}">
+      <div class="row row-cols-2 justify-content-between px-3">
+        <p class="col fw-light">Fecha de entrega: {{contrato.contrato_data.fecha_entrega}}</p>
+        <div class="col text-end dropend">
+          <i class="bi bi-three-dots-vertical w-auto pe-0 dropdown-toggle-split" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false"></i>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="vista/:{{contrato.contrato_data.idContrato}}">Editar</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;" (click)="eliminar(contrato.contrato_data.idContrato)">Eliminar</a></li>
+          </ul>
+        </div>
+      </div>
+      <h3 class="text-center"><a href="vista/:{{contrato.contrato_data.idContrato}}" class="text-decoration-underline text-dark">{{contrato.contrato_data.nombre}}</a></h3>
+      <p class="text-center fw-light">{{contrato.contrato_data.tipo}}</p>
+      <div class="row row-cols-2 justify-content-between px-3">
+        <div style="width: 35px;height:35px;" class="col d-flex justify-content-center align-items-center bg-dark rounded-circle">
+          <i class="bi bi-trash3 col text-light" style="font-size: 20px;cursor:pointer;" (click)="eliminar(contrato.contrato_data.idContrato)"></i>
+        </div>
+        <div class="col rounded-pill bg-restantes d-flex align-items-center justify-content-center">
+          <p class="mb-0" style="color: black;">
+            {{ contrato.dias_restantes >= 0 ? contrato.dias_restantes + ' días faltantes' : 'Terminado' }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="overlay z-2" *ngIf="cargando"></div>
+<div class="bg-light w-25 position-absolute top-50 start-50 translate-middle p-5 text-center rounded-3 border z-3" *ngIf="cargando">
+  <h3>Cargando</h3>
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+
+

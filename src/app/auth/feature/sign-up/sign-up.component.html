@@ -1,1 +1,75 @@
-<p>sign-up works!</p>
+<div class="overlay z-2" *ngIf="cargando || confirmar"></div>
+<div class="d-flex vh-100 background position-relative">
+  <div class="container_background d-flex">
+    <div class="container_login">
+      <div class="d-flex align-items-end mb-4">
+          <div>
+            <svg width="66" height="56" viewBox="0 0 66 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_i_1_89)">
+              <path d="M15.9764 39.5636C9.01527 47.3766 3.31957 38.9301 6.06186 34.918C6.06186 34.918 8.38212 32.384 12.3902 28.5831C16.3983 24.7821 26.5239 21.8542 28.2116 32.1728C29.8993 42.4914 38.3372 45.265 39.8138 44.2092C41.2904 43.1533 46.7091 38.4052 25.4691 20.9812C16.5478 12.0509 19.9149 -0.805071 37.6346 0.0395878C45.4401 0.411662 52.4012 6.16334 53.6669 10.6341C54.2544 12.7094 51.6272 20.1001 45.7209 16.1244L38.3372 10.6341C34.3295 7.25552 29.7295 10.6341 35.173 15.2797C41.8536 20.9812 48.451 25.5335 51.6272 35.7626C56.2685 57.0901 25.4691 66.3813 18.0859 37.2408L15.9764 39.5636Z" fill="#000" fill-opacity="0.8"/>
+              <path d="M57.5858 11.8213C58.2114 18.0501 60.2215 19.3356 65.9213 18.8156C59.3943 19.7325 58.2042 21.7658 58.9306 27.1468C58.3236 21.4303 56.4273 19.98 50.5951 20.1524C56.4856 19.7822 57.7339 17.7009 57.5858 11.8213Z" fill="#000" fill-opacity="0.8"/>
+              <path d="M7.56562 46.0242C7.56562 48.1134 5.872 49.807 3.78281 49.807C1.69362 49.807 0 48.1134 0 46.0242C0 43.935 1.69362 42.2414 3.78281 42.2414C5.872 42.2414 7.56562 43.935 7.56562 46.0242Z" fill="#000" fill-opacity="0.8"/>
+              </g>
+              <defs>
+              <filter id="filter0_i_1_89" x="0" y="0" width="65.9213" height="59.6388" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+              <feOffset dy="4"/>
+              <feGaussianBlur stdDeviation="2"/>
+              <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+              <feBlend mode="normal" in2="shape" result="effect1_innerShadow_1_89"/>
+              </filter>
+              </defs>
+              </svg>
+          </div>
+          <div class="fs-3">ign Sync</div>
+      </div>
+      <div class="">
+        <h1 class="fw-bold">Registrate</h1>
+        <div *ngIf="mensajeerror" class="border-2 border border-danger d-flex justify-content-center align-items-center bg-danger-subtle mb-1 rounded-2">
+          <p class="my-2 text-danger">{{ mensajeerror }}</p>
+        </div>
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="d-block">
+          <div class="input-group">
+            <label class="" for="email">Usuario</label>
+            <input type="text" formControlName="usuario" placeholder="nombre">
+          </div>
+          <div class="input-group">
+            <label class="" for="email">Correo electronico</label>
+            <input type="text" formControlName="correo" placeholder="correo@mail.com">
+          </div>
+          <div class="input-group">
+            <label class="" for="email">Contraseña</label>
+            <input type="password" formControlName="contrasena" placeholder="Contraseña">
+          </div>
+          <button type="submit" class="btn-login" [disabled]="cargando">Registrar</button>
+          <span class="register-link">¿Ya cuentas con una cuenta? <a href="/sign-in">Inicia sesion</a></span>
+        </form>
+      </div>
+
+      <div class="social-login">
+        <p class="text-center">Conéctate con</p>
+        <div class="social-buttons">
+            <button class="btn-social google"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16"><path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/></svg></button>
+            <button class="btn-social github"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/></svg></button>
+            <button class="btn-social microsoft"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-microsoft" viewBox="0 0 16 16"><path d="M7.462 0H0v7.19h7.462zM16 0H8.538v7.19H16zM7.462 8.211H0V16h7.462zm8.538 0H8.538V16H16z"/></svg></button>
+        </div>
+    </div>
+
+    </div>
+  </div>
+  <div class="bg-light w-25 position-absolute top-50 start-50 translate-middle p-5 text-center rounded-3 border z-3" *ngIf="cargando">
+    <h3>Cargando</h3>
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <div class="bg-light position-absolute top-50 start-50 translate-middle p-5 text-center rounded-3 border z-3 w-25" *ngIf="confirmar">
+    <h3 class="mb-4">Registo completo</h3>
+    <a href="/sign-in" class="btn-login" style="width: auto; text-decoration:none;">Ir a Inicia de sesion</a>
+  </div>
+</div>
+
+

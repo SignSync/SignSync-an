@@ -1,0 +1,84 @@
+.volver{
+  background-color: #7a97ff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.principal{
+  border-radius: 35px;
+}
+.calendar-navigation{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.calendar-navigation span{
+  font-size: 30px;
+}
+.calendar-navigation i{
+  font-size: 22px;
+}
+.calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  background-color: #BFCFF280;
+  padding: 1.5rem;
+  border-radius: 15px;
+  height: 650px;
+}
+
+.days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+}
+
+.day-header {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.days-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+  gap: 5px;
+  height: 100%;
+}
+
+.day, .empty-day {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.day-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center;    /* Centrar verticalmente */
+  box-sizing: border-box;
+  border-radius: 50%;     /* Formato circular */
+  font-size: 16px;        /* Ajusta el tamaño de texto */
+}
+
+.day.contract-end .day-box {
+  border: 1px solid red; /* Día de fin de contrato */
+}
+
+.day[title] {
+  cursor: pointer; /* Apunta a los días con tooltip */
+}
+
+.day:hover {
+  filter: brightness(0.9); /* Resaltar día al pasar el cursor */
+}

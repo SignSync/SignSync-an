@@ -1,5 +1,5 @@
 /* Para pantallas pequeñas como teléfonos móviles */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .container_login{
     width: 90% !important;
     padding: 50px 30px !important;
@@ -35,7 +35,7 @@
   max-width: 1280px;
   max-height: 800px;
   margin: 35px auto;
-  padding: 50px 60px;
+  padding: 50px 40px;
   background-color: #D7E3FC;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -130,3 +130,4 @@
 .register-link a:hover {
   text-decoration: underline;
 }
+
