@@ -131,7 +131,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="formdocumento" (ngSubmit)="agregardocumento(fileInput)">
+        <form [formGroup]="formdocumento" (ngSubmit)="agregardocumento()">
           <div class="mb-3 form-group">
             <label for="NombreContrato">Nombre del documento</label>
             <input type="text" formControlName="nombre" placeholder="Ingresa el nombre del usuario">
@@ -139,7 +139,7 @@
 
           <div class="mb-3 form-group">
             <label for="lugar">Documento</label>
-            <input type="file" #fileInput>
+            <input type="file" name="documento">
           </div>
 
           <div class="d-flex flex-row-reverse">

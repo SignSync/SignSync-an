@@ -112,6 +112,7 @@ export default class NavegacionComponent implements OnInit{
       },
 
     });
+    this.cargando = false
   }
   obtenerContratista(){
 
@@ -135,7 +136,7 @@ export default class NavegacionComponent implements OnInit{
 
       });
     }
-
+    this.cargando = false
   }
   agregarempresa(){
     this.cargando = true
@@ -173,9 +174,11 @@ export default class NavegacionComponent implements OnInit{
       },
       complete: () => {
         console.info('Solicitud completada.');
+        this.cargando = false
       },
 
     });
+    this.cargando = false
   }
   agregarcontratista(){
     this.cargando = true
@@ -224,7 +227,7 @@ export default class NavegacionComponent implements OnInit{
       },
 
     });
-
+    this.cargando = false
   }
   agregarcontrato() {
     this.cargando = true
@@ -287,6 +290,7 @@ export default class NavegacionComponent implements OnInit{
        this.cargando = false
       },
     });
+    this.cargando = false
   }
   terminar(){
     this.empresacreada = false;
@@ -317,6 +321,7 @@ export default class NavegacionComponent implements OnInit{
         this.cargando = false
       }
     })
+    this.cargando = false
   }
   clasificarContratos(contratos: ContratoApi2[]) {
 

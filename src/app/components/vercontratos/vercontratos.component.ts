@@ -84,7 +84,7 @@ export class VercontratosComponent implements OnInit{
       });
     }else{
       console.log('No hay emprsa');
-
+      this.cargando = false
     }
   }
   eliminar(idContrato:any){

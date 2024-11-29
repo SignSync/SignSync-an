@@ -206,3 +206,12 @@ export interface editarcontratista{
 export interface eliminarContratista{
   idContratista:number
 }
+export interface SubirDocumento{
+  nombre:string
+  file:File,
+  idContrato:number
+}
+export interface APiDocumento{
+  status: string
+  id_new_documento:number
+}

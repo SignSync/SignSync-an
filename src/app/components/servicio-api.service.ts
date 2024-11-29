@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiResponsePaquete, CrearContrato2, CrearPaquete, DeleteContra, editarcontratista, editarContrato, EditarEmpresa, EditarUsuarioApi, eliminarContratista, eliminarPaquete, sign_in } from '../interfaces';
+import { APiDocumento, ApiResponsePaquete, CrearContrato2, CrearPaquete, DeleteContra, editarcontratista, editarContrato, EditarEmpresa, EditarUsuarioApi, eliminarContratista, eliminarPaquete, sign_in, SubirDocumento } from '../interfaces';
 import { Observable,BehaviorSubject  } from 'rxjs';
 import { HttpClient} from '@angular/common/http';
 import { ApiResponse } from '../interfaces';
@@ -100,8 +100,8 @@ export class ServicioAPIService {
   editarContrato(data:editarContrato):Observable<ApiResponse>{
     return this.http.put<ApiResponse>(this.apiUrl + '/api/contratos/editcontrato', data);
   }
-  subirdocumento(data:subirdocumento):Observable<ApiResponse>{
-    return this.http.post<ApiResponse>(this.apiUrl+ '/api/documentos/creardocumento',data);
+  subirdocumento(data:SubirDocumento):Observable<APiDocumento>{
+    return this.http.post<APiDocumento>(this.apiUrl+ '/api/documentos/creardocumento',data);
   }
   deleteContrato(data:DeleteContra):Observable<ApiResponse>{
     const options = {

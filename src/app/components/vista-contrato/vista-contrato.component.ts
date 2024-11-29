@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule,Location  } from '@angular/common';
 import { ServicioAPIService } from '../servicio-api.service';
-import { ApiResponse2,Contratista,editarContrato,RespuestaContratista,CrearContrato, ApiResponse, DeleteContra, CrearPaquete, ApiResponsePaquete, Paquete, eliminarPaquete } from '../../interfaces';
+import { ApiResponse2,Contratista,editarContrato,RespuestaContratista,CrearContrato, ApiResponse, DeleteContra, CrearPaquete, ApiResponsePaquete, Paquete, eliminarPaquete, SubirDocumento, APiDocumento } from '../../interfaces';
 import { Router } from '@angular/router';
 import { formatDate  } from '@angular/common';
 import Swal from 'sweetalert2';
@@ -224,20 +224,44 @@ export class VistaContratoComponent implements OnInit{
     });
 
   }
-  agregardocumento(fileInput: HTMLInputElement): void {
+  agregardocumento() {
     const { nombre } = this.formdocumento.value;
-    const documento = fileInput.files?.[0];
+    const inputFile = document.querySelector('input[name="documento"]') as HTMLInputElement;
 
-    if (documento) {
-      console.log('Nombre:', nombre);
-      console.log('Documento:', documento);
-
-      // Ejemplo de envío de datos al servidor
-      const formData = new FormData();
-      formData.append('nombre', nombre);
-      formData.append('documento', documento);
+    if (inputFile && inputFile.files) {
+      const archivo = inputFile.files[0];
+      let data:SubirDocumento = {
+        nombre:nombre,
+        idContrato: this.idcontrato[1],
+        file:archivo
+      }
+      console.log(data);
+      
+      this.servicio.subirdocumento(data).subscribe({
+        next: (response: APiDocumento) => {
+          console.log(response);
+          this.cargando = false
+          if(response.status){
+            Swal.fire({
+              title: 'Documento Agregado',
+              text: 'Documento Agregado con exito con exito',
+              icon: 'success',
+              confirmButtonText:'Continuar'
+            })
+            this.obtenerpaquetes(this.idcontrato[1])
+          }
+  
+        },
+        error: (err) => {
+          console.error('Error al realizar la solicitud:', err);
+        },
+        complete: () => {
+          this.cargando = false
+          console.info('Solicitud completada.');
+        },
+      })
     } else {
-      console.error('No se seleccionó ningún archivo');
+      console.log('No se seleccionó ningún archivo');
     }
   }
   agregarpaquete(){
