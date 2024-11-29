@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule,Location  } from '@angular/common';
 import { ServicioAPIService } from '../servicio-api.service';
-import { ApiResponse2,Contratista,editarContrato,RespuestaContratista,CrearContrato, ApiResponse, DeleteContra, CrearPaquete, ApiResponsePaquete, Paquete, eliminarPaquete, SubirDocumento, APiDocumento } from '../../interfaces';
+import { ApiResponse2,Contratista,editarContrato,RespuestaContratista,CrearContrato, ApiResponse, DeleteContra, CrearPaquete, ApiResponsePaquete, Paquete, eliminarPaquete, SubirDocumento, APiDocumento, APiDocumentoGet, Documentos, eliminarDocumento } from '../../interfaces';
 import { Router } from '@angular/router';
 import { formatDate  } from '@angular/common';
 import Swal from 'sweetalert2';
@@ -24,6 +24,7 @@ export class VistaContratoComponent implements OnInit{
   cargando:boolean = false
   paquetes:Paquete|any
   total:number = 0
+  documentos:Documentos [] = []
   infodocumento:editarContrato = {
     id_contrato: 0,
     nombre: '',
@@ -76,8 +77,8 @@ export class VistaContratoComponent implements OnInit{
     this.servicio.currentArray.subscribe((array) => {
       this.arrayRecibido = array
       console.log('array recibido',this.arrayRecibido);
-
     })
+    this.obtener()
   }
   initForm(): FormGroup {
     return this.fb.group({
@@ -225,45 +226,54 @@ export class VistaContratoComponent implements OnInit{
 
   }
   agregardocumento() {
+    this.cargando = true
     const { nombre } = this.formdocumento.value;
     const inputFile = document.querySelector('input[name="documento"]') as HTMLInputElement;
 
     if (inputFile && inputFile.files) {
       const archivo = inputFile.files[0];
-      let data:SubirDocumento = {
-        nombre:nombre,
+      const data: SubirDocumento = {
+        nombre: nombre,
         idContrato: this.idcontrato[1],
-        file:archivo
-      }
+        file: archivo
+      };
+
       console.log(data);
-      
+      const boton = document.getElementById('cerrar') as HTMLButtonElement;
+      if (boton) {
+        boton.click(); // Simula el clic
+      } else {
+        console.error('No se encontró el botón con el ID "cerrar".');
+      }
+      this.formdocumento.reset()
+      inputFile.value = "";
       this.servicio.subirdocumento(data).subscribe({
         next: (response: APiDocumento) => {
           console.log(response);
-          this.cargando = false
-          if(response.status){
+          this.cargando = false;
+          if (response.status) {
             Swal.fire({
               title: 'Documento Agregado',
-              text: 'Documento Agregado con exito con exito',
+              text: 'Documento agregado con éxito',
               icon: 'success',
-              confirmButtonText:'Continuar'
-            })
-            this.obtenerpaquetes(this.idcontrato[1])
+              confirmButtonText: 'Continuar'
+            });
+            this.obtener()
           }
-  
         },
         error: (err) => {
           console.error('Error al realizar la solicitud:', err);
         },
         complete: () => {
-          this.cargando = false
+          this.cargando = false;
           console.info('Solicitud completada.');
         },
-      })
+      });
     } else {
       console.log('No se seleccionó ningún archivo');
     }
   }
+
   agregarpaquete(){
     this.cargando = true
     const boton = document.getElementById('close') as HTMLButtonElement;
@@ -407,5 +417,72 @@ export class VistaContratoComponent implements OnInit{
       }
     });
   }
-
+  obtener(){
+    this.cargando = true
+    this.servicio.getDocumentos(this.idcontrato[1]).subscribe({
+      next: (response: APiDocumentoGet) => {
+        if (response.status) {
+          this.documentos = response.documentos
+          console.log(this.documentos);
+          this.cargando = false
+        }
+      },
+      error: (err) => {
+        console.error('Error al realizar la solicitud:', err);
+        this.cargando = false
+      },
+      complete: () => {
+        console.info('Solicitud completada.');
+      }
+    })
+  }
+  eliminardocumento(id_documento:any){
+    this.cargando = true
+    console.log('Eliminar documento:', id_documento);
+    let data:eliminarDocumento = {
+      idDocumento:id_documento
+    }
+    Swal.fire({
+      title: "Seguro que quieres eliminar el documento?",
+      text: "Esta acción es irreversible!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: "Si, eliminar documento!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.servicio.deleteDocumento(data).subscribe({
+          next: (response: ApiResponse) => {
+            console.log(response);
+            if(response.status){
+              this.cargando = false
+              Swal.fire({
+                title: "Documento eliminado!",
+                text: "Documento eliminado con exito.",
+                icon: "success",
+                confirmButtonText: "Continuar"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.obtener()
+                }
+              });
+            }
+          },
+          error: (err) => {
+            console.error('Error al realizar la solicitud:', err);
+            this.cargando = false
+          },
+          complete: () => {
+            this.cargando = false
+            console.info('Solicitud completada.');
+            this.cargando = false
+          },
+        })
+      }else if (result.isDismissed) {
+        this.cargando = false
+      }
+    });
+  }
 }

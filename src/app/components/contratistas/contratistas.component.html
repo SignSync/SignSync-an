@@ -8,6 +8,7 @@
         <th>Ocupacion</th>
         <th>Telefono</th>
         <th>Domicilio</th>
+        <th>Informacion</th>
         <th>Editar</th>
         <th>Eliminar</th>
       </tr>
@@ -19,6 +20,7 @@
         <th>{{contratista.ocupacion}}</th>
         <th>{{contratista.telefono}}</th>
         <th>{{contratista.domicilio}}</th>
+        <th><button class="btn_action ver" (click)="obtenerinfo(contratista.idContratista)"><i class="bi bi-eye-fill"></i></button></th>
         <th><button class="btn_action editar" data-bs-target="#editar" data-bs-toggle="modal" (click)="agregarinfo(contratista.idContratista)"><i class="bi bi-pencil-fill"></i></button></th>
         <th><button class="btn_action eliminar" (click)="eliminar(contratista.idContratista)"><i class="bi bi-trash-fill"></i></button></th>
       </tr>
@@ -73,6 +75,51 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<button data-bs-target="#informacion" data-bs-toggle="modal" id="abrir" style="display: none;"></button>
+<!-- Modal Informacion --->
+<div class="modal fade" id="informacion" data-bs-backdrop="static" tabindex="-1" aria-labelledby="informacion">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Información del contratista: {{nombre}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar3"></button>
+      </div>
+      <div class="modal-body">
+        <div class="">
+          <h5>Total de contratos:</h5>
+          <p class="fw-light">{{totalContratos}}</p>
+          <h5 class="text-center">Status de contratos activos</h5>
+          <div class="col d-flex justify-content-center">
+            <ngx-charts-pie-chart
+              [results]="graficaDatos"
+              [explodeSlices]="false"
+              [labels]="true"
+              [doughnut]="false"
+              [gradient]="true"
+              [view]="[450, 450]">
+            </ngx-charts-pie-chart>
+          </div>
+          <h5>Total de ganancias con el contratista:</h5>
+          <p class="fw-light">$ {{totalGanancia}}</p>
+          <h5 class="text-center">Ganancias por contrato</h5>
+          <div class="col d-flex justify-content-center">
+            <ngx-charts-bar-vertical
+              [results]="graficaIngresos"
+              [xAxis]="true"
+              [yAxis]="true"
+              [showDataLabel]="true">
+            </ngx-charts-bar-vertical>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Terminar</button>
       </div>
     </div>
   </div>

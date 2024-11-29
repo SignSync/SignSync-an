@@ -142,3 +142,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .color-option input[type="radio"]:checked + .color-circle {
   border-color: #ff4242;
 }
+.bg_subir{
+  background-color: #FBFCFFE5;
+}
+.bg_subir:hover{
+  background-color: #fbfcffc5;
+}
+.subir{
+  color: #a2a6b1;
+}

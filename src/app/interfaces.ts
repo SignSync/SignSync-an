@@ -206,6 +206,9 @@ export interface editarcontratista{
 export interface eliminarContratista{
   idContratista:number
 }
+export interface eliminarDocumento{
+  idDocumento:number
+}
 export interface SubirDocumento{
   nombre:string
   file:File,
@@ -214,4 +217,29 @@ export interface SubirDocumento{
 export interface APiDocumento{
   status: string
   id_new_documento:number
+}
+export interface APiDocumentoGet{
+  status:boolean
+  documentos:Documentos[]
+}
+export interface Documentos{
+  idContrato:number
+  idDocumento:number
+  nombre:string
+  url:string
+}
+export interface ApiResponseContraInfo{
+  status:boolean
+  contratos:ContratosContra[]
+}
+export interface ContratosContra{
+  color: string;
+  fecha_entrega: string;
+  fecha_inicio: string;
+  idContrato: number;
+  idEmpresa: number;
+  lugar: string;
+  nombre: string;
+  tipo: string;
+  total:number
 }

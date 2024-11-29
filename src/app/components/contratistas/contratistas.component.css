@@ -25,6 +25,14 @@
   background-color: #F39C12;
   border: 1px solid #F39C12
 }
+.ver{
+  background-color: #007BFF;
+  border: 1px solid #007BFF;
+}
+.ver:hover{
+  background-color: #0056b3;
+  border: 1px solid #0056b3;
+}
 .formulario-group{
   display: flex;
   flex-direction: column;
