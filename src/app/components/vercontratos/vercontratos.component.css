@@ -92,3 +92,17 @@ h5{
 .agregar:hover{
   color: #5a7cf7;
 }
+.info{
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 555px) {
+  .info{
+    font-size: 13px;
+    justify-content: center;
+    flex-direction: column-reverse;
+  }
+  .info p{
+    margin: 0;
+  }
+}

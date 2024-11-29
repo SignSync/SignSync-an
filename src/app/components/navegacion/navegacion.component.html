@@ -1,24 +1,20 @@
 <nav class="mb-2">
   <div class="row ps-md-5 py-md-4 py-3 ps-1 w-100 mx-auto align-content-center">
-    <div class="col-md-4 d-flex align-items-center ">
-      <div class="container_img">
-        <img src="Logo.png" alt="" class="img-fluid">
-      </div>
-      <h1 class="ms-3 titulo">sign sync</h1>
+    <div class="col-md-6 col-6 d-flex align-items-center ">
+      <a href="/contratos">
+        <div class="container_img">
+          <img src="Logo.png" alt="" class="img-fluid">
+        </div>
+      </a>
+      <h1 class="ms-3 titulo fs-md-1 fs-3 fw-bolder"><a href="/contratos" class="text-dark text-decoration-none">Sign Sync</a></h1>
     </div>
-    <div class="col-md-4 d-flex align-items-center my-2 my-md-0">
-      <div class="bg-white p-2 w-100 d-flex align-items-center" style="max-height: 44px; border-radius: 20px;">
-        <input type="text" name="" id="" class="bg-none input_busqueda" placeholder="Buscar">
-        <i class="bi bi-search my-2 d-none d-lg-inline-block"></i>
-      </div>
-    </div>
-    <div class="col-md-4 row ps-md-4 py-md-4  justify-content-end align-items-center my-2 my-md-0">
-      <div class="col-5 col-md-4 iconos_menu border-end border-light-subtle border-2">
+    <div class="col-md-6 col-6 d-flex ps-md-4 py-md-4 justify-content-end my-2 my-md-0 acomodo align-items-sm-end">
+      <div class="col-md-4 iconos_menu">
         <i class="bi bi-person-plus mx-1" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle2"></i>
         <i type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="bi bi-plus-circle mx-1"></i>
-        <i class="bi bi-bell mx-1" data-bs-toggle="offcanvas" data-bs-target="#notificaciones" aria-controls="notificaciones" type="button"></i>
+        <i class="bi bi-bell mx-1 position-relative" data-bs-toggle="offcanvas" data-bs-target="#notificaciones" aria-controls="notificaciones" type="button"></i>
       </div>
-      <div class="col-6 d-flex align-items-center">
+      <div class=" d-flex align-items-center me-4 ps-2 separar">
         <div class="container_perfil rounded-circle">
           <img src="user.png" alt="" class="w-100 rounded-circle">
         </div>
@@ -258,21 +254,21 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-    <div class="p-3 border border-danger bg-danger-subtle">
+    <div class="p-3 border border-danger bg-danger-subtle" *ngIf="contratosProximos.length">
       <h5>Los proximos contratos a vencer son:</h5>
       <div *ngFor="let contratosP of contratosProximos" class="p-2 border border-danger-subtle my-2 border-opacity-75 rounded-2">
         <h5><a href="vista/:{{contratosP.contrato_data.idContrato}}" class="text-decoration-underline text-dark">{{contratosP.contrato_data.nombre}}</a></h5>
         <p class="fw-light m-0">Fecha de entrega: {{contratosP.contrato_data.fecha_entrega}}</p>
       </div>
     </div>
-    <div class="p-3 border border-warning bg-warning-subtle mt-2">
+    <div class="p-3 border border-warning bg-warning-subtle mt-2" *ngIf="contratosCercanos.length">
       <h5>Los proximos contratos a vencer son:</h5>
       <div *ngFor="let contratosC of contratosCercanos" class="p-2 border border-warning-subtle my-2 border-opacity-75 rounded-2">
         <h5><a href="vista/:{{contratosC.contrato_data.idContrato}}" class="text-decoration-underline text-dark">{{contratosC.contrato_data.nombre}}</a></h5>
         <p class="fw-light m-0">Fecha de entrega: {{contratosC.contrato_data.fecha_entrega}}</p>
       </div>
     </div>
-    <div class="p-3 border border-success bg-success-subtle mt-2">
+    <div class="p-3 border border-success bg-success-subtle mt-2" *ngIf="contratosConTiempo.length">
       <h5>Los proximos contratos cercanos son:</h5>
       <div *ngFor="let contratosT of contratosConTiempo" class="p-2 border border-success-subtle my-2 border-opacity-75 rounded-2">
         <h5><a href="vista/:{{contratosT.contrato_data.idContrato}}" class="text-decoration-underline text-dark">{{contratosT.contrato_data.nombre}}</a></h5>

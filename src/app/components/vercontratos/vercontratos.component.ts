@@ -32,7 +32,7 @@ export class VercontratosComponent implements OnInit{
   idUsuario:number = 2;
   data:any;
   contratos:ContratoApi|any
-  cantidadContrato:number|any
+  cantidadContrato:number = 0
   contratosActivos:number = 0
   contratosInactivos:number = 0
   cargando = false

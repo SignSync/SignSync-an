@@ -82,3 +82,13 @@
 .day:hover {
   filter: brightness(0.9); /* Resaltar día al pasar el cursor */
 }
+.container_cal{
+  overflow-x: auto;
+  max-width: 100%;
+}
+@media (max-width: 555px) {
+  .day, .empty-day{
+    width: 27px;
+    height: 27px;
+  }
+}
