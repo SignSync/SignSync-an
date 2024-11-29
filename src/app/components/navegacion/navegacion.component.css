@@ -10,13 +10,26 @@
   align-items: center;
   border-radius: 15px;
 }
+@media (max-width: 555px) {
+  .acomodo{
+    flex-direction: column-reverse !important;
+    align-items: end !important;
+  }
+  .iconos_menu{
+    margin-right: 1.5rem;
+  }
+}
+@media (min-width: 556px) {
+  .acomodo{
+    align-items: center !important;
+  }
+  .separar{
+    border-left: 1.5px solid #ccc;
+  }
+}
 .container_img img{
   max-width: 45px;
   max-height: auto;
-}
-.titulo{
-  font-weight: bolder;
-  font-size: 25px;
 }
 .input_busqueda, .input_busqueda:focus,.input_busqueda::placeholder{
   border: none;
@@ -130,4 +143,8 @@
 }
 .agregar:hover{
   color: #5a7cf7;
+}
+.tamano{
+  width: 10px !important;
+  height: 10px !important;
 }

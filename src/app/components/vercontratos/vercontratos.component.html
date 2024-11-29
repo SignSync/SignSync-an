@@ -1,25 +1,25 @@
 <section class="bg-white p-4 rounded-4 principal">
-  <div class="row row-cols-2 justify-content-between">
+  <div class="row">
     <h1 class="col text-start fw-bolder">Contratos</h1>
     <h1 class="col text-end">{{fechaActual}}</h1>
-    <div class="col row">
-      <i type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="col-1 bi bi-plus-circle-fill"
+  </div>
+  <div class="d-flex">
+    <i type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="w-auto bi bi-plus-circle-fill me-2"
         style="font-size: 35px;"></i>
-      <div class="col-10 row">
-        <div class="col-auto">
+      <div class="w-auto row">
+        <div class="col-auto info">
           <h5 class="fw-bolder">{{contratosActivos}}</h5>
           <p class="fw-light">Contratos iniciados</p>
         </div>
-        <div class="col-auto">
+        <div class="col-auto info">
           <h5 class="fw-bolder">{{contratosInactivos}}</h5>
           <p class="fw-light">Contratos sin iniciar</p>
         </div>
-        <div class="col-auto">
+        <div class="col-auto info">
           <h5 class="fw-bolder">{{cantidadContrato}}</h5>
           <p class="fw-light">Total de Proyectos</p>
         </div>
       </div>
-    </div>
   </div>
   <div class="row ps-3 justify-content-center">
     <div class="cards rounded-4 bgcontrato p-3 me-2 mt-2" *ngFor="let contrato of contratos" [ngStyle]="{'background-color': contrato.contrato_data.color}">

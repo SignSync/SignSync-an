@@ -2,6 +2,10 @@
   box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 25PX;
 }
+.container_table{
+  max-width: 100%;
+  overflow-x: auto;
+}
 .btn_action{
   height: 50px;
   width: 50px;
